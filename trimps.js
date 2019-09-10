@@ -16,6 +16,7 @@ const SCIENCE = 'SCIENCE';
 
 const BATTLE = 'BATTLE';
 
+var researched = [];
 
 (function() {
 
@@ -25,7 +26,7 @@ const BATTLE = 'BATTLE';
         () => {
             loop()
         }
-        ,1000);
+    ,1000);
 
     // Your code here...
 })();
@@ -37,8 +38,8 @@ const loop = () => {
     var foodOwned = $('#foodOwned').text();
     var woodOwned = $('#woodOwned').text();
 
-    var trimpsOwned = $('#trimpsOwned').text();
-    var trimpsMax = $('#trimpsMax').text();
+    var trimpsOwned = parseInt($('#trimpsOwned').text());
+    var trimpsMax = parseInt($('#trimpsMax').text());
     var trimpsEmployed = $('#trimpsEmployed').text();
     var maxEmployed = $('#maxEmployed').text();
 
@@ -52,54 +53,63 @@ const loop = () => {
     var inQueue = queue0 == '' ? false : true;
     var science = $('#scienceOwned').text();
 
+
     console.log(`food: ${foodOwned} wood: ${woodOwned} working: ${working} queue0: ${queue0} `);
+    console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
+    console.log(researched);
 
 
+    if(trimpsMax >= 15) {
+
+    }
+    else {
     if(inQueue == false) {
-        if($('#fightBtn').length != 0) {
-            $('#flightBtn').click;
-            if($('#Battle').length != 0){
-                research(BATTLE);
-            }
-            if(trimpsEmployed < maxEmployed) {
-                if(foodOwned < 5) {
-                    harvest(WOOD);
-                } else if(farmers == 0 || farmers <= lumberjacks) {
-                    $('#Farmer').click();
-                } else {
-                    $('#Lumberjack').click();
-                }
-            }
-            if(trimpsOwned < 10 && traps > 0) {
-                console.log('getting trimps');
-                $('#trimpsCollectBtn').click();
-            }
-            else if(foodOwned < 10) {
-                console.log('getting food');
-                harvest(FOOD);
-            }
-            else if(woodOwned < 10) {
-                console.log('getting wood');
+        if($('#Battle').length != 0) {
+            research(BATTLE);
+        }
+        else if(trimpsOwned >= 10 && researched.includes(BATTLE)) {
+            console.log('fight!');
+            $('#fightBtn').click();
+        }
+        if(trimpsEmployed < maxEmployed) {
+            if(foodOwned < 5) {
                 harvest(WOOD);
-            }
-            else if((woodOwned >= 10 && foodOwned >= 10) && (trimpsOwned < trimpsMax)) {
-                console.log('trap');
-                $('#Trap').click();
-                $('#buildingsCollectBtn').click();
-            }
-            else if (science <= 10) {
-                harvest(SCIENCE);
+            } else if(farmers == 0 || farmers <= lumberjacks) {
+                $('#Farmer').click();
+            } else {
+                $('#Lumberjack').click();
             }
         }
+        if(trimpsOwned < 10 && traps > 0) {
+            console.log('getting trimps');
+            $('#trimpsCollectBtn').click();
+        }
+        else if (foodOwned < 10) {
+            console.log('getting food');
+            harvest(FOOD);
+        }
+        else if(woodOwned < 10) {
+            console.log('getting wood');
+            harvest(WOOD);
+        }
+        else if((woodOwned >= 10 && foodOwned >= 10) && trimpsOwned < trimpsMax) {
+            console.log('trap');
+            $('#Trap').click();
+            $('#buildingsCollectBtn').click();
+        }
+        else if (science <= 10 && trimpsOwned >= 10) {
+            harvest(SCIENCE);
+        }
     }
+}
 }
 
 const research = (research) => {
     switch(research) {
         case BATTLE:
             $('#Battle').click();
-            $('#fightBtn').click();
+            researched.push(BATTLE);
     }
 }
 
