@@ -37,41 +37,42 @@ var trimpsEmployed = parseInt($('#trimpsEmployed').text());
 var maxEmployed = parseInt($('#maxEmployed').text());
 
 //JOBS
-var farmers = parseInt($('#FarmerOwned').text());
-var lumberjacks = parseInt($('#LumberjackOwned').text());
+var farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
+var lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
 //var scientists = parseInt($('#
 
 var queue0 = $('#queueItem0').text();
 var traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
 //var traps = parseInt(trapReady);
-var inQueue = queue0 == '' ? false : true;
+var inQueue = $('#queueItem0').length;
 var zone = $('#worldNumber').text();
 var science = $('#scienceOwned').text();
+var buildingQueue = $('#queueItemsHere div').length;
 
 
 var researched = [];
 
+
+var battle = $('#BattleOwned').text();
+var fighting = $('#trimpsFighting').text();
+var battleContainer = $('#battleContainer').css('visibility');
+
 (function() {
-
     'use strict';
-
     setInterval(
-        () => {
-            loop()
-        }
-        ,1000);
-
-    // Your code here...
+        () => { loop() } ,1000);
 })();
+
+
 
 const loop = () => {
 
-    console.log(`food: ${foodOwned} wood: ${woodOwned} working: ${working} zone: ${zone} traps: ${traps} inqueue: ${inQueue} queue0: ${queue0} `);
+    getStats();
+    console.log(`food: ${foodOwned} wood: ${woodOwned} working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
-    console.log(researched);
 
-    getStats();
+    
 
     if(trimpsMax >= 15) {
         console.log('AREA 2');
@@ -82,25 +83,30 @@ const loop = () => {
         doWork();
     }
     else {
-        console.log('starting');
-        if(trimpsEmployed < maxEmployed) {
+        if(trimpsOwned < trimpsMax) {
+            assignJobs();
             if(traps > 0) {
+                console.log('traps');
                 harvest(TRIMPS);
-            } else if(queue0 != '') {
+            } else if(buildingQueue > 0) {
                 harvest(BUILDING)
+            } else if(foodOwned >= 10 && woodOwned >= 10) {
+                $('#TrapOwned').click();
             } else if(foodOwned < 10) {
+                console.log('food');
                 harvest(FOOD);
             } else if (woodOwned < 10) {
+                console.log('wood');
                 harvest(WOOD);
             } else if (queue0 != '') {
+                console.log('trimps');
                 harvest(TRIMPS);
             }
         } else {
-            if($('#Battle').length != 0) {
-                research(BATTLE);
-            } else if(trimpsOwned >= 10 && researched.includes(BATTLE)) {
+            if(battleContainer == 'visible') {
                 attack();
-            } else if (science <= 10 && trimpsOwned >= 10) {
+            } else {
+                $('#BattleOwned').click();
                 harvest(SCIENCE);
             }
         }
@@ -108,11 +114,20 @@ const loop = () => {
 }
 
 const assignJobs = () => {
-    if(queue0 != '') {
-        $('#buildingsCollectBtn').click();
-    }
-    else {
-        harvest(SCIENCE);
+    if(trimpsOwned < 50) {
+        if(farmers == 0 || farmers <= lumberjacks) {
+            if(foodOwned < 5) {
+                harvest(FOOD);
+            } else {
+                $('#FarmerOwned').click();
+            }
+        } else {
+            if(foodOwned < 5) {
+                harvest(FOOD);
+            } else {
+                $('#Lumberjack').click();
+            }
+        }
     }
 }
 
@@ -155,16 +170,35 @@ const doWork = () => {
 }
 
 const getStats = () => {
+    //Resources
     foodOwned = parseInt($('#foodOwned').text());
-
     foodMax = parseInt($('#foodMax').text());
     woodOwned = parseInt($('#woodOwned').text());
     woodMax = parseInt($('#woodMax').text());
+    science = $('#scienceOwned').text();
+
+
+    //Infrastructure
+    huts = parseInt($('#HutOwned').text());
 
     trimpsOwned = parseInt($('#trimpsOwned').text());
     trimpsMax = parseInt($('#trimpsMax').text());
-    trimpsEmployed = $('#trimpsEmployed').text();
-    maxEmployed = $('#maxEmployed').text();
+    trimpsEmployed = parseInt($('#trimpsEmployed').text());
+    maxEmployed = parseInt($('#maxEmployed').text());
+
+    //JOBS
+    farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
+    lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
+    //var scientists = parseInt($('#
+
+    queue0 = $('#queueItem0').text();
+    traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
+    //var traps = parseInt(trapReady);
+    inQueue = $('#queueItem0').length;
+    zone = $('#worldNumber').text();
+    buildingQueue = $('#queueItemsHere div').length;
+
+    battleContainer = $('#battleContainer').css('visibility');
 }
 
 const harvest = (resource) => {
@@ -194,6 +228,9 @@ const research = (research) => {
     switch(research) {
         case BATTLE:
             $('#Battle').click();
-            researched.push(BATTLE);
+            if(researched.includes(BATTLE)) {
+               researched.push(BATTLE);
+               }
+            
     }
 }
