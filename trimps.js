@@ -39,7 +39,7 @@ var maxEmployed = parseInt($('#maxEmployed').text());
 //JOBS
 var farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
 var lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
-//var scientists = parseInt($('#
+var scientists = $('#Scientist').length == 0 ? 0 : parseInt($('#Scientist').text());
 
 var queue0 = $('#queueItem0').text();
 var traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
@@ -68,7 +68,10 @@ var battleContainer = $('#battleContainer').css('visibility');
 const loop = () => {
 
     getStats();
-    console.log(`food: ${foodOwned} wood: ${woodOwned} working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
+
+    console.log(`--------------------`);
+    console.log(`food: ${foodOwned} wood: ${woodOwned} science: ${science}`);
+    console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
 
@@ -86,20 +89,16 @@ const loop = () => {
         if(trimpsOwned < trimpsMax) {
             assignJobs();
             if(traps > 0) {
-                console.log('traps');
                 harvest(TRIMPS);
             } else if(buildingQueue > 0) {
                 harvest(BUILDING)
             } else if(foodOwned >= 10 && woodOwned >= 10) {
                 $('#TrapOwned').click();
             } else if(foodOwned < 10) {
-                console.log('food');
                 harvest(FOOD);
             } else if (woodOwned < 10) {
-                console.log('wood');
                 harvest(WOOD);
             } else if (queue0 != '') {
-                console.log('trimps');
                 harvest(TRIMPS);
             }
         } else {
@@ -166,7 +165,16 @@ const checkWorkQueue = () => {
 }
 
 const doWork = () => {
-
+    if(traps > 0 && trimpsOwned < trimpsMax) {
+        console.log('trimps');
+        harvest(TRIMPS);
+    } else if(buildingQueue > 0) {
+        harvest(BUILDING);
+    } else if(trimpsOwned / trimpsMax < .75) {
+        $('#TrapOwned').click();
+    } else {
+        harvest(SCIENCE);
+    }
 }
 
 const getStats = () => {
@@ -213,7 +221,6 @@ const harvest = (resource) => {
             $('#scienceCollectBtn').click();
             break;
         case BUILDING:
-            console.log('collecting');
             $('#buildingsCollectBtn').click();
             break;
         case TRIMPS:
