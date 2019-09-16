@@ -83,6 +83,7 @@ const loop = () => {
         checkResources();
         checkHousing();
         assignJobs();
+        checkResearch();
         doWork();
     }
     else {
@@ -141,6 +142,15 @@ const checkHousing = () => {
     if(foodOwned >= nextHutFood && woodOwned >= nextHutWood) {
         $('#Hut').click();
     }
+}
+
+const checkResearch = () => {
+    var availableResearch = $('#upgradesHere').children('.thingColorCanAfford').attr('id');
+    if(availableResearch) {
+        console.log(availableResearch);
+        $('#' + availableResearch).click();
+    }
+
 }
 
 const checkResources = () => {
