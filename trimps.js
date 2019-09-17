@@ -19,7 +19,6 @@ const convertNumber = field => {
         case 'K':
             return(valueNumber * 1000);
         default:
-            console.log('field: ' + field);
             return(valueNumber);
     }
 }
@@ -59,6 +58,7 @@ var scienceOwned = convertNumber('scienceOwned');
 var huts = parseInt($('#HutOwned').text());
 
 
+//Trimps
 var trimpsOwned = parseInt($('#trimpsOwned').text());
 var trimpsMax = parseInt($('#trimpsMax').text());
 var trimpsEmployed = parseInt($('#trimpsEmployed').text());
@@ -67,6 +67,7 @@ var maxEmployed = parseInt($('#maxEmployed').text());
 //JOBS
 var farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
 var lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
+var miners = $('#MinerOwned').length == 0 ? 0 : parseInt($('#MinerOwned').text());
 var scientists = $('#ScientistOwned').length == 0 ? 0 : parseInt($('#ScientistOwned').text());
 
 var queue0 = $('#queueItem0').text();
@@ -84,6 +85,9 @@ var battle = $('#BattleOwned').text();
 var fighting = $('#trimpsFighting').text();
 var battleContainer = $('#battleContainer').css('visibility');
 
+//Equipment
+var shieldOwned = parseInt($('#ShieldOwned').text());
+
 (function() {
     'use strict';
     setInterval(
@@ -97,11 +101,10 @@ const loop = () => {
     getStats();
 
     console.log(`--------------------`);
-    console.log(`food: ${foodOwned} wood: ${woodOwned} science: ${scienceOwned}`);
+    console.log(`food: ${foodOwned}/${foodMax} wood: ${woodOwned}/${foodMax} metal: ${metalOwned}/${metalMax} science: ${scienceOwned}`);
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
-    
 
     if(trimpsMax >= 15) {
         console.log('AREA 2');
@@ -143,7 +146,7 @@ const loop = () => {
 }
 
 const assignJobs = () => {
-    if(trimpsOwned < 50) {
+    if(trimpsOwned < 25) {
         if(farmers == 0 || farmers <= lumberjacks) {
             if(foodOwned < 5) {
                 harvest(FOOD);
@@ -160,7 +163,9 @@ const assignJobs = () => {
     } else {
         console.log('new job');
         if($('#Scientist').length && scientists < 2) {
-            $('#Scientist').click()
+            $('#Scientist').click();
+        } else if ($('#Miner').length && miners < 10) {
+            $('#Miner').click();
         } else if (farmers <= lumberjacks) {
             $('#FarmerOwned').click();
         } else {
@@ -175,7 +180,7 @@ const attack = () => {
 
 const checkEquipment = () => {
     if('#Shield') {
-        if(woodOwned/2 > Math.floor(40*Math.pow(1.2, parseInt($('#ShieldOwned').text())))) {
+        if(shieldOwned < 10 && woodOwned/2 > Math.floor(40*Math.pow(1.2, shieldOwned))) {
             $('#Shield').click();
         }
     }
@@ -187,6 +192,10 @@ const checkHousing = () => {
     if(foodOwned >= nextHutFood && woodOwned >= nextHutWood) {
         $('#Hut').click();
     }
+    if('#House .thingColorCanAfford') {
+        $('#House').click();
+    }
+
 }
 
 const checkResearch = () => {
@@ -207,9 +216,8 @@ const checkResources = () => {
         console.log('shed!');
         $('#ShedOwned').click();
     }
-    if(foodOwned == foodMax) {
-        console.log('barn!');
-        $('#BarnOwned').click();
+    if(metalOwned === metalMax) {
+        $('#Forge').click();
     }
 }
 
@@ -254,6 +262,7 @@ const getStats = () => {
     //JOBS
     farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
     lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
+    miners = $('#MinerOwned').length == 0 ? 0 : parseInt($('#MinerOwned').text());
     scientists = $('#ScientistOwned').length == 0 ? 0 : parseInt($('#ScientistOwned').text());
 
     queue0 = $('#queueItem0').text();
@@ -264,6 +273,9 @@ const getStats = () => {
     buildingQueue = $('#queueItemsHere div').length;
 
     battleContainer = $('#battleContainer').css('visibility');
+
+    //Equipment
+    shieldOwned = parseInt($('#ShieldOwned').text());
 }
 
 const harvest = (resource) => {
