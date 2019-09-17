@@ -8,7 +8,30 @@
 // @grant        none
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
+
+
+
+const convertNumber = field => {
+    let value = $('#' + field).text();
+    let valueNumber = parseInt(value);
+    let suffix = value[value.length-1];
+    switch(suffix) {
+        case 'K':
+            return(valueNumber * 1000);
+        default:
+            return($('#' + field).text());
+    }
+}
+
+
+
+
+
+
 var $ = window.jQuery;
+
+
+
 
 const FOOD = 'FOOD';
 const WOOD = 'WOOD';
@@ -22,10 +45,10 @@ const BATTLE = 'BATTLE';
 var working = false;
 
 //Resources
-var foodOwned = parseInt($('#foodOwned').text());
-var foodMax = parseInt($('#foodMax').text());
-var woodOwned = parseInt($('#woodOwned').text());
-var woodMax = parseInt($('#woodMax').text());
+var foodOwned = convertNumber('foodOwned');
+var foodMax = convertNumber('foodMax');
+var woodOwned = convertNumber('woodOwned');
+var woodMax = convertNumber('woodMax');
 
 
 //Infrastructure
@@ -197,10 +220,10 @@ const doWork = () => {
 
 const getStats = () => {
     //Resources
-    foodOwned = parseInt($('#foodOwned').text());
-    foodMax = parseInt($('#foodMax').text());
-    woodOwned = parseInt($('#woodOwned').text());
-    woodMax = parseInt($('#woodMax').text());
+    foodOwned = convertNumber('foodOwned');
+    foodMax = convertNumber('foodMax');
+    woodOwned = convertNumber('woodOwned');
+    woodMax = convertNumber('woodMax');
     science = $('#scienceOwned').text();
 
 
