@@ -19,7 +19,8 @@ const convertNumber = field => {
         case 'K':
             return(valueNumber * 1000);
         default:
-            return($('#' + field).text());
+            console.log('field: ' + field);
+            return(valueNumber);
     }
 }
 
@@ -49,10 +50,14 @@ var foodOwned = convertNumber('foodOwned');
 var foodMax = convertNumber('foodMax');
 var woodOwned = convertNumber('woodOwned');
 var woodMax = convertNumber('woodMax');
+var metalOwned = convertNumber('metalOwned');
+var metalMax = convertNumber('metalMax');
+var scienceOwned = convertNumber('scienceOwned');
 
 
 //Infrastructure
 var huts = parseInt($('#HutOwned').text());
+
 
 var trimpsOwned = parseInt($('#trimpsOwned').text());
 var trimpsMax = parseInt($('#trimpsMax').text());
@@ -62,14 +67,13 @@ var maxEmployed = parseInt($('#maxEmployed').text());
 //JOBS
 var farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
 var lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
-var scientists = $('#Scientist').length == 0 ? 0 : parseInt($('#Scientist').text());
+var scientists = $('#ScientistOwned').length == 0 ? 0 : parseInt($('#ScientistOwned').text());
 
 var queue0 = $('#queueItem0').text();
 var traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
 //var traps = parseInt(trapReady);
 var inQueue = $('#queueItem0').length;
 var zone = $('#worldNumber').text();
-var science = $('#scienceOwned').text();
 var buildingQueue = $('#queueItemsHere div').length;
 
 
@@ -93,16 +97,17 @@ const loop = () => {
     getStats();
 
     console.log(`--------------------`);
-    console.log(`food: ${foodOwned} wood: ${woodOwned} science: ${science}`);
+    console.log(`food: ${foodOwned} wood: ${woodOwned} science: ${scienceOwned}`);
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
-
     
 
     if(trimpsMax >= 15) {
         console.log('AREA 2');
-        attack();
+        if(trimpsOwned === trimpsMax) {
+            attack();
+        }
         checkResources();
         checkHousing();
         assignJobs();
@@ -151,6 +156,15 @@ const assignJobs = () => {
             } else {
                 $('#Lumberjack').click();
             }
+        }
+    } else {
+        console.log('new job');
+        if($('#Scientist').length && scientists < 2) {
+            $('#Scientist').click()
+        } else if (farmers <= lumberjacks) {
+            $('#FarmerOwned').click();
+        } else {
+            $('#Lumberjack').click();
         }
     }
 }
@@ -224,7 +238,9 @@ const getStats = () => {
     foodMax = convertNumber('foodMax');
     woodOwned = convertNumber('woodOwned');
     woodMax = convertNumber('woodMax');
-    science = $('#scienceOwned').text();
+    metalOwned = convertNumber('metalOwned');
+    metalMax = convertNumber('metalMax');
+    scienceOwned = convertNumber('scienceOwned');
 
 
     //Infrastructure
@@ -238,7 +254,7 @@ const getStats = () => {
     //JOBS
     farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').text());
     lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
-    //var scientists = parseInt($('#
+    scientists = $('#ScientistOwned').length == 0 ? 0 : parseInt($('#ScientistOwned').text());
 
     queue0 = $('#queueItem0').text();
     traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
@@ -279,6 +295,5 @@ const research = (research) => {
             if(researched.includes(BATTLE)) {
                researched.push(BATTLE);
                }
-            
     }
 }
