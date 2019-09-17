@@ -84,6 +84,7 @@ const loop = () => {
         checkHousing();
         assignJobs();
         checkResearch();
+        checkEquipment();
         doWork();
     }
     else {
@@ -135,6 +136,13 @@ const attack = () => {
     $('#fightBtn').click();
 }
 
+const checkEquipment = () => {
+    if('#Shield') {
+        if(woodOwned/2 > Math.floor(40*Math.pow(1.2, parseInt($('#ShieldOwned').text())))) {
+            $('#Shield').click();
+        }
+    }
+}
 
 const checkHousing = () => {
     var nextHutFood = Math.floor(125*Math.pow(1.24, huts));
