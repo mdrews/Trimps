@@ -87,6 +87,9 @@ var battleContainer = $('#battleContainer').css('visibility');
 
 //Equipment
 var shieldOwned = parseInt($('#ShieldOwned').text());
+var daggerOwned = parseInt($('#DaggerOwned').text());
+var bootsOwned = parseInt($('#BootsOwned').text());
+
 
 (function() {
     'use strict';
@@ -184,6 +187,16 @@ const checkEquipment = () => {
             $('#Shield').click();
         }
     }
+    if('#Dagger') {
+        if(daggerOwned < 10 && woodOwned/2 > Math.floor(40*Math.pow(1.2, daggerOwned))) {
+            $('#Dagger').click();
+        }
+    }
+    if('#Boots') {
+        if(bootsOwned < 10 && woodOwned/2 > Math.floor(40*Math.pow(1.2, bootsOwned))) {
+            $('#Boots').click();
+        }
+    }
 }
 
 const checkHousing = () => {
@@ -229,7 +242,6 @@ const checkWorkQueue = () => {
 
 const doWork = () => {
     if(traps > 0 && trimpsOwned < trimpsMax) {
-        console.log('trimps');
         harvest(TRIMPS);
     } else if(buildingQueue > 0) {
         harvest(BUILDING);
@@ -276,6 +288,8 @@ const getStats = () => {
 
     //Equipment
     shieldOwned = parseInt($('#ShieldOwned').text());
+    daggerOwned = parseInt($('#DaggerOwned').text());
+    bootsOwned = parseInt($('#BootsOwned').text());
 }
 
 const harvest = (resource) => {
