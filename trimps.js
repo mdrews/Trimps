@@ -89,7 +89,8 @@ var battleContainer = $('#battleContainer').css('visibility');
 var shieldOwned = parseInt($('#ShieldOwned').text());
 var daggerOwned = parseInt($('#DaggerOwned').text());
 var bootsOwned = parseInt($('#BootsOwned').text());
-
+var maceOwned = parseInt($('#MaceOwned').text());
+var helmetOwned = parseInt($('#HelmetOwned').text());
 
 (function() {
     'use strict';
@@ -188,13 +189,23 @@ const checkEquipment = () => {
         }
     }
     if('#Dagger') {
-        if(daggerOwned < 10 && woodOwned/2 > Math.floor(40*Math.pow(1.2, daggerOwned))) {
+        if(daggerOwned < 10 && metalOwned/2 > Math.floor(40*Math.pow(1.2, daggerOwned))) {
             $('#Dagger').click();
         }
     }
     if('#Boots') {
-        if(bootsOwned < 10 && woodOwned/2 > Math.floor(40*Math.pow(1.2, bootsOwned))) {
+        if(bootsOwned < 10 && metalOwned/2 > Math.floor(55*Math.pow(1.2, bootsOwned))) {
             $('#Boots').click();
+        }
+    }
+    if('#Mace') {
+        if(maceOwned < 10 && metalOwned/2 > Math.floor(80*Math.pow(1.2, maceOwned))) {
+            $('#Mace').click();
+        }
+    }
+    if('#Helmet') {
+        if(helmetOwned < 10 && metalOwned/2 > Math.floor(100*Math.pow(1.2, helmetOwned))) {
+            $('#Helmet').click();
         }
     }
 }
@@ -290,6 +301,8 @@ const getStats = () => {
     shieldOwned = parseInt($('#ShieldOwned').text());
     daggerOwned = parseInt($('#DaggerOwned').text());
     bootsOwned = parseInt($('#BootsOwned').text());
+    maceOwned = parseInt($('#MaceOwned').text());
+    helmetOwned = parseInt($('#HelmetOwned').text());
 }
 
 const harvest = (resource) => {
