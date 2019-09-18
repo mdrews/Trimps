@@ -56,6 +56,7 @@ var scienceOwned = convertNumber('scienceOwned');
 
 //Infrastructure
 var huts = parseInt($('#HutOwned').text());
+var gymOwned = parseInt($('#gymOwned').text());
 
 
 //Trimps
@@ -91,6 +92,12 @@ var daggerOwned = parseInt($('#DaggerOwned').text());
 var bootsOwned = parseInt($('#BootsOwned').text());
 var maceOwned = parseInt($('#MaceOwned').text());
 var helmetOwned = parseInt($('#HelmetOwned').text());
+var polearmOwned = parseInt($('#PolearmOwned').text());
+var pantsOwned = parseInt($('#PantsOwned').text());
+var battleaxeOwned = parseInt($('#BattleaxeOwned').text());
+var shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
+var greatswordOwned = parseInt($('#GreatswordOwned').text());
+var breastplateOwned = parseInt($('#BreastplateOwned').text());
 
 (function() {
     'use strict';
@@ -109,6 +116,7 @@ const loop = () => {
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
+    //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
 
     if(trimpsMax >= 15) {
         console.log('AREA 2');
@@ -165,7 +173,6 @@ const assignJobs = () => {
             }
         }
     } else {
-        console.log('new job');
         if($('#Scientist').length && scientists < 2) {
             $('#Scientist').click();
         } else if ($('#Miner').length && miners < 10) {
@@ -206,6 +213,36 @@ const checkEquipment = () => {
     if('#Helmet') {
         if(helmetOwned < 10 && metalOwned/2 > Math.floor(100*Math.pow(1.2, helmetOwned))) {
             $('#Helmet').click();
+        }
+    }
+    if('#Polearm') {
+        if(polearmOwned < 10 && metalOwned/2 > Math.floor(140*Math.pow(1.2, polearmOwned))) {
+            $('#Polearm').click();
+        }
+    }
+    if('#Pants') {
+        if(pantsOwned < 10 && metalOwned/2 > Math.floor(160*Math.pow(1.2, pantsOwned))) {
+            $('#Pants').click();
+        }
+    }
+    if('#Battleaxe') {
+        if(battleaxeOwned < 10 && metalOwned/2 > Math.floor(230*Math.pow(1.2, battleaxeOwned))) {
+            $('#Battleaxe').click();
+        }
+    }
+    if('#Shoulderguards') {
+        if(shoulderguardsOwned < 10 && metalOwned/2 > Math.floor(275*Math.pow(1.2, shoulderguardsOwned))) {
+            $('#Shoulderguards').click();
+        }
+    }
+    if('#Greatsword') {
+        if(greatswordOwned < 10 && metalOwned/2 > Math.floor(375*Math.pow(1.2, greatswordOwned))) {
+            $('#Greatsword').click();
+        }
+    }
+    if('#Breastplate') {
+        if(breastplateOwned < 10 && metalOwned/2 > Math.floor(4115*Math.pow(1.2, breastplateOwned))) {
+            $('#Breastplate').click();
         }
     }
 }
@@ -276,6 +313,7 @@ const getStats = () => {
 
     //Infrastructure
     huts = parseInt($('#HutOwned').text());
+    gymOwned = parseInt($('#gymOwned').text());
 
     trimpsOwned = parseInt($('#trimpsOwned').text());
     trimpsMax = parseInt($('#trimpsMax').text());
@@ -303,6 +341,12 @@ const getStats = () => {
     bootsOwned = parseInt($('#BootsOwned').text());
     maceOwned = parseInt($('#MaceOwned').text());
     helmetOwned = parseInt($('#HelmetOwned').text());
+    polearmOwned = parseInt($('#PolearmOwned').text());
+    pantsOwned = parseInt($('#PantsOwned').text());
+    battleaxeOwned = parseInt($('#BattleaxeOwned').text());
+    shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
+    greatswordOwned = parseInt($('#GreatswordOwned').text());
+    breastplateOwned = parseInt($('#BreastplateOwned').text());
 }
 
 const harvest = (resource) => {
