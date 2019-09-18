@@ -56,7 +56,7 @@ var scienceOwned = convertNumber('scienceOwned');
 
 //Infrastructure
 var huts = parseInt($('#HutOwned').text());
-var gymOwned = parseInt($('#gymOwned').text());
+var gymOwned = parseInt($('#GymOwned').text());
 
 
 //Trimps
@@ -117,6 +117,7 @@ const loop = () => {
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
     //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
+    console.log(`Gyms: ${gymOwned}`);
 
     if(trimpsMax >= 15) {
         console.log('AREA 2');
@@ -124,7 +125,7 @@ const loop = () => {
             attack();
         }
         checkResources();
-        checkHousing();
+        checkInfrastructure();
         assignJobs();
         checkResearch();
         checkEquipment();
@@ -191,63 +192,63 @@ const attack = () => {
 
 const checkEquipment = () => {
     if('#Shield') {
-        if(shieldOwned < 10 && woodOwned/2 > Math.floor(40*Math.pow(1.2, shieldOwned))) {
+        if(shieldOwned < 20 && woodOwned/4 > Math.floor(40*Math.pow(1.2, shieldOwned))) {
             $('#Shield').click();
         }
     }
     if('#Dagger') {
-        if(daggerOwned < 10 && metalOwned/2 > Math.floor(40*Math.pow(1.2, daggerOwned))) {
+        if(daggerOwned < 20 && metalOwned/4 > Math.floor(40*Math.pow(1.2, daggerOwned))) {
             $('#Dagger').click();
         }
     }
     if('#Boots') {
-        if(bootsOwned < 10 && metalOwned/2 > Math.floor(55*Math.pow(1.2, bootsOwned))) {
+        if(bootsOwned < 20 && metalOwned/4 > Math.floor(55*Math.pow(1.2, bootsOwned))) {
             $('#Boots').click();
         }
     }
     if('#Mace') {
-        if(maceOwned < 10 && metalOwned/2 > Math.floor(80*Math.pow(1.2, maceOwned))) {
+        if(maceOwned < 20 && metalOwned/4 > Math.floor(80*Math.pow(1.2, maceOwned))) {
             $('#Mace').click();
         }
     }
     if('#Helmet') {
-        if(helmetOwned < 10 && metalOwned/2 > Math.floor(100*Math.pow(1.2, helmetOwned))) {
+        if(helmetOwned < 20 && metalOwned/4 > Math.floor(100*Math.pow(1.2, helmetOwned))) {
             $('#Helmet').click();
         }
     }
     if('#Polearm') {
-        if(polearmOwned < 10 && metalOwned/2 > Math.floor(140*Math.pow(1.2, polearmOwned))) {
+        if(polearmOwned < 20 && metalOwned/4 > Math.floor(140*Math.pow(1.2, polearmOwned))) {
             $('#Polearm').click();
         }
     }
     if('#Pants') {
-        if(pantsOwned < 10 && metalOwned/2 > Math.floor(160*Math.pow(1.2, pantsOwned))) {
+        if(pantsOwned < 20 && metalOwned/4 > Math.floor(160*Math.pow(1.2, pantsOwned))) {
             $('#Pants').click();
         }
     }
     if('#Battleaxe') {
-        if(battleaxeOwned < 10 && metalOwned/2 > Math.floor(230*Math.pow(1.2, battleaxeOwned))) {
+        if(battleaxeOwned < 20 && metalOwned/4 > Math.floor(230*Math.pow(1.2, battleaxeOwned))) {
             $('#Battleaxe').click();
         }
     }
     if('#Shoulderguards') {
-        if(shoulderguardsOwned < 10 && metalOwned/2 > Math.floor(275*Math.pow(1.2, shoulderguardsOwned))) {
+        if(shoulderguardsOwned < 20 && metalOwned/4 > Math.floor(275*Math.pow(1.2, shoulderguardsOwned))) {
             $('#Shoulderguards').click();
         }
     }
     if('#Greatsword') {
-        if(greatswordOwned < 10 && metalOwned/2 > Math.floor(375*Math.pow(1.2, greatswordOwned))) {
+        if(greatswordOwned < 20 && metalOwned/4 > Math.floor(375*Math.pow(1.2, greatswordOwned))) {
             $('#Greatsword').click();
         }
     }
     if('#Breastplate') {
-        if(breastplateOwned < 10 && metalOwned/2 > Math.floor(4115*Math.pow(1.2, breastplateOwned))) {
+        if(breastplateOwned < 20 && metalOwned/4 > Math.floor(4115*Math.pow(1.2, breastplateOwned))) {
             $('#Breastplate').click();
         }
     }
 }
 
-const checkHousing = () => {
+const checkInfrastructure = () => {
     var nextHutFood = Math.floor(125*Math.pow(1.24, huts));
     var nextHutWood = Math.floor(75*Math.pow(1.24, huts));
     if(foodOwned >= nextHutFood && woodOwned >= nextHutWood) {
@@ -255,6 +256,10 @@ const checkHousing = () => {
     }
     if('#House .thingColorCanAfford') {
         $('#House').click();
+    }
+    console.log('looking');
+    if($('#Gym') && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
+        $('#Gym').click();
     }
 
 }
@@ -313,7 +318,7 @@ const getStats = () => {
 
     //Infrastructure
     huts = parseInt($('#HutOwned').text());
-    gymOwned = parseInt($('#gymOwned').text());
+    gymOwned = parseInt($('#GymOwned').text());
 
     trimpsOwned = parseInt($('#trimpsOwned').text());
     trimpsMax = parseInt($('#trimpsMax').text());
