@@ -13,13 +13,13 @@
 
 const convertNumber = field => {
     let value = $('#' + field).text();
-    let valueNumber = parseInt(value);
+    let valueNumber = parseFloat(value);
     let suffix = value[value.length-1];
     switch(suffix) {
         case 'K':
-            return(valueNumber * 1000);
+            return ~~(valueNumber * 1000);
         case 'M':
-            return(valueNumber * 1000000);
+            return ~~(valueNumber * 1000000);
         default:
             return(valueNumber);
     }
@@ -361,7 +361,7 @@ const checkInfrastructure = () => {
     if('#House .thingColorCanAfford') {
         $('#House').click();
     }
-    console.log('looking');
+    if('#Mansion .thingColorCanAfford') $('#Mansion').click();
     if($('#Gym') && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
         $('#Gym').click();
     }
