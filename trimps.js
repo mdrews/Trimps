@@ -242,7 +242,7 @@ const checkEquipment = () => {
         }
     }
     if('#Breastplate') {
-        if(breastplateOwned < 20 && metalOwned/4 > Math.floor(4115*Math.pow(1.2, breastplateOwned))) {
+        if(breastplateOwned < 20 && metalOwned/4 > Math.floor(415*Math.pow(1.2, breastplateOwned))) {
             $('#Breastplate').click();
         }
     }
