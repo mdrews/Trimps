@@ -54,6 +54,7 @@ var woodMax = convertNumber('woodMax');
 var metalOwned = convertNumber('metalOwned');
 var metalMax = convertNumber('metalMax');
 var scienceOwned = convertNumber('scienceOwned');
+var fragmentsOwned = convertNumber('fragmentsOwned');
 
 
 //Infrastructure
@@ -101,13 +102,20 @@ var shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
 var greatswordOwned = parseInt($('#GreatswordOwned').text());
 var breastplateOwned = parseInt($('#BreastplateOwned').text());
 
+
+var worldName = $('#worldName').text();
 var worldNumber = parseInt($('#worldNumber').text());
 
+var newMap = false;
+var AUTOMATE = true;
 
 (function() {
     'use strict';
+
+    if(AUTOMATE) {
     setInterval(
         () => { loop() } ,1000);
+    }
 })();
 
 
@@ -198,12 +206,36 @@ const attack = () => {
 //         console.log('should unpause');
 //         $('#pauseFight').click();
 //     }
-    if(worldNumber < 20) {
+    if(newMap == true) {
+        createMap();
+    } else if (worldName != 'Zone') {
+        console.log('stuck in map land');
+        $('#fightBtn').click();
+    } else if(worldNumber >= 8 && worldNumber < 20) {
         if(worldNumber % 2 == 0) {
+            //Map mode
+            //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
+            let mapTokens = [];
+            let maxLevel = 0;
+            let mapIndex = 0;
+            mapTokens = $('#mapsHere div').find('span.thingOwned.mapLevel').text().split('Level ');
+            let currentMaps = mapTokens.map(x => parseInt(x, 10));
+            currentMaps.shift();
+            for(let x = 0; x < currentMaps.length; x++) {
+                if(maxLevel < currentMaps[x]){
+                    maxLevel = currentMaps[x];
+                    mapIndex = x;
+                }
+            }
             if($('#mapsBtnText').text() == 'Maps') {
                 $('#mapsBtnText').click();
+            } else if(maxLevel < worldNumber) {
+                createMap();
             } else {
-
+                console.log(`waiting to go to map: ${mapIndex}`);
+                let map = $('#mapsHere div')[mapIndex];
+                $('#' + $(map).attr('id')).click();
+                $('#selectMapBtn').click();
             }
         }
     }
@@ -211,10 +243,55 @@ const attack = () => {
 }
 
 const createMap = () => {
+    console.log('in createMap');
     let mapLoot = parseInt($('#lootAdvMapsRange').val());
     let mapSize = parseInt($('#sizeAdvMapsRange').val());
     let mapDifficulty = parseInt($('#difficultyAdvMapsRange').val());
-    console.log(`-Map- loot: ${mapLoot} size: ${mapSize} difficulty: ${mapDifficulty} `);
+    let mapCost = parseInt($('#mapCostFragmentCost').html());
+
+    console.log(`-Map- loot: ${mapLoot} size: ${mapSize} difficulty: ${mapDifficulty} cost: ${mapCost} fragments: ${fragmentsOwned}`);
+
+    if(newMap == false) {
+        $('#difficultyAdvMapsRange').val(9);
+        $('#lootAdvMapsRange').val(9);
+        $('#sizeAdvMapsRange').val(9);
+        newMap = true
+    } else
+
+
+    if(mapCost > fragmentsOwned) {
+        if(mapSize > 0) {
+            $('#sizeAdvMapsRange').val(mapSize-1);
+        } else if(mapLoot > 0) {
+            $('#lootAdvMapsRange').val(mapLoot-1);
+        } else if(mapDifficulty > 0) {
+            $('#difficultyAdvMapsRange').val(mapDifficulty-1)
+        }
+    } else {
+        console.log('map ready!');
+        $('#mapCreateBtn').click();
+        newMap = false;
+
+    }
+    $(document).ready(() => {updateMapNumbers()});
+    //TODO set condition for max difficulty requirement fragments > current fragments
+
+//     if(mapCost > fragmentsOwned) {
+//         console.log('in loot');
+//     } else {
+//         console.log('checking size value');
+//
+//         $(document).ready(() => {updateMapNumbers()});
+//         fragmentsOwned = convertNumber('fragmentsOwned')
+//         console.log(`difference: ${mapCost-fragmentsOwned} types: ${typeof(mapCost)} ${typeof(fragmentsOwned)}`);
+//         if (mapCost > fragmentsOwned) {
+//             $('#sizeAdvMapsRange').val(sizeValue);
+//             $(document).ready(() => {updateMapNumbers()});
+//             sizeValue--;
+//             fragmentsOwned = convertNumber('fragmentsOwned')
+//             console.log('decrease size');
+//         }
+//     }
 }
 
 const checkEquipment = () => {
@@ -341,6 +418,7 @@ const getStats = () => {
     metalOwned = convertNumber('metalOwned');
     metalMax = convertNumber('metalMax');
     scienceOwned = convertNumber('scienceOwned');
+    fragmentsOwned = convertNumber('fragmentsOwned');
 
 
     //Infrastructure
@@ -379,6 +457,10 @@ const getStats = () => {
     shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
     greatswordOwned = parseInt($('#GreatswordOwned').text());
     breastplateOwned = parseInt($('#BreastplateOwned').text());
+
+    //world
+    worldName = $('#worldName').text();
+    worldNumber = parseInt($('#worldNumber').text());
 }
 
 const harvest = (resource) => {
