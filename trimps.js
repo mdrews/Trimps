@@ -18,6 +18,8 @@ const convertNumber = field => {
     switch(suffix) {
         case 'K':
             return(valueNumber * 1000);
+        case 'M':
+            return(valueNumber * 1000000);
         default:
             return(valueNumber);
     }
@@ -99,6 +101,9 @@ var shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
 var greatswordOwned = parseInt($('#GreatswordOwned').text());
 var breastplateOwned = parseInt($('#BreastplateOwned').text());
 
+var worldNumber = parseInt($('#worldNumber').text());
+
+
 (function() {
     'use strict';
     setInterval(
@@ -117,6 +122,7 @@ const loop = () => {
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
     //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
+    console.log(`#battle stats# World: ${worldNumber}`);
     console.log(`Gyms: ${gymOwned}`);
 
     if(trimpsMax >= 15) {
@@ -187,7 +193,28 @@ const assignJobs = () => {
 }
 
 const attack = () => {
-    $('#fightBtn').click();
+    console.log('attack');
+//     if($('#pauseFight').length) {
+//         console.log('should unpause');
+//         $('#pauseFight').click();
+//     }
+    if(worldNumber < 20) {
+        if(worldNumber % 2 == 0) {
+            if($('#mapsBtnText').text() == 'Maps') {
+                $('#mapsBtnText').click();
+            } else {
+
+            }
+        }
+    }
+        //$('#fightBtn').click();
+}
+
+const createMap = () => {
+    let mapLoot = parseInt($('#lootAdvMapsRange').val());
+    let mapSize = parseInt($('#sizeAdvMapsRange').val());
+    let mapDifficulty = parseInt($('#difficultyAdvMapsRange').val());
+    console.log(`-Map- loot: ${mapLoot} size: ${mapSize} difficulty: ${mapDifficulty} `);
 }
 
 const checkEquipment = () => {
