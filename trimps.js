@@ -60,12 +60,17 @@ const itemCost = {
         2: {
             6: 20000,
             10: 41.600
+        },
+        3: {
+            metal: 361
         }
     },
     pants: {
         2: {
-            metal: 7700,
-            interval: 1.2
+            metal: 7700
+        },
+        3: {
+            metal: 413000
         }
     },
     battleaxe: {
@@ -375,7 +380,13 @@ const createMap = () => {
     let mapSize = parseInt($('#sizeAdvMapsRange').val());
     let mapDifficulty = parseInt($('#difficultyAdvMapsRange').val());
     let mapCost = parseInt($('#mapCostFragmentCost').html());
+    let mapCreatorLevel = parseInt($('#mapLevelInput').val());
+    console.log(mapCreatorLevel);
 
+    if(mapCreatorLevel < worldNumber) {
+        console.log('increase map level');
+        incrementMapLevel(worldNumber-mapCreatorLevel);
+    }
     console.log(`-Map- loot: ${mapLoot} size: ${mapSize} difficulty: ${mapDifficulty} cost: ${mapCost} fragments: ${fragmentsOwned}`);
 
     if(newMap == false) {
@@ -394,6 +405,8 @@ const createMap = () => {
         } else if(mapDifficulty > 0) {
             $('#difficultyAdvMapsRange').val(mapDifficulty-1)
         }
+    } else if ((mapSize == 0 && mapLoot == 0 && mapDifficulty == 0) && mapCost > fragmentsOwned) {
+        newMap = false;
     } else {
         console.log('map ready!');
         $('#mapCreateBtn').click();
@@ -462,9 +475,6 @@ const checkEquipment = () => {
 }
 
 const checkInfrastructure = () => {
-    var nextHutFood = Math.floor(125*Math.pow(1.24, huts));
-    var nextHutWood = Math.floor(75*Math.pow(1.24, huts));
-
     if('#Hut .thingColorCanAfford') $('#Hut').click();
     if('#House .thingColorCanAfford') $('#House').click();
     if('#Mansion .thingColorCanAfford') $('#Mansion').click();
@@ -472,7 +482,6 @@ const checkInfrastructure = () => {
     if($('#Gym').length && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
         $('#Gym').click();
     }
-
 }
 
 const checkResearch = () => {
@@ -485,11 +494,11 @@ const checkResearch = () => {
 }
 
 const checkResources = () => {
-    if(foodOwned == foodMax) {
+    if(foodOwned === foodMax) {
         console.log('barn!');
         $('#BarnOwned').click();
     }
-    if(woodOwned == woodMax) {
+    if(woodOwned === woodMax) {
         console.log('shed!');
         $('#ShedOwned').click();
     }
@@ -529,7 +538,6 @@ const getStats = () => {
 
 
     //Infrastructure
-    huts = parseInt($('#HutOwned').text());
     gymOwned = parseInt($('#GymOwned').text());
 
     trimpsOwned = parseInt($('#trimpsOwned').text());
