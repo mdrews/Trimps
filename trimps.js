@@ -11,14 +11,14 @@
 
 const roman = {
     "II": 2,
-    III: 3,
-    IV: 4,
-    V: 5,
-    VI: 6,
-    VII: 7,
-    VIII: 8,
-    IX: 9,
-    X: 10
+    "III": 3,
+    "IV": 4,
+    "V": 5,
+    "VI": 6,
+    "VII": 7,
+    "VIII": 8,
+    "IX": 9,
+    "X": 10
 }
 
 const itemCost = {
@@ -69,9 +69,7 @@ const itemCost = {
         2: {
             metal: 7700
         },
-        3: {
-            metal: 413000
-        }
+        3: 413000
     },
     battleaxe: {
         2: {
@@ -90,7 +88,8 @@ const itemCost = {
         2: {
             1: 21600,
             5: 44700
-        }
+        },
+        3: 967000
     },
     breastplate: {
         2: {
@@ -161,6 +160,8 @@ var farmers = $('#FarmerOwned').length == 0 ? 0 : parseInt($('#FarmerOwned').tex
 var lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
 var miners = $('#MinerOwned').length == 0 ? 0 : parseInt($('#MinerOwned').text());
 var scientists = $('#ScientistOwned').length == 0 ? 0 : parseInt($('#ScientistOwned').text());
+var trainers = $('#TrainerOwned').length == 0 ? 0 : parseInt($('#TrainerOwned').text());
+var explorers = $('#ExplorerOwned').length == 0 ? 0 : parseInt($('#ExplorerOwned').text());
 
 var queue0 = $('#queueItem0').text();
 var traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
@@ -224,7 +225,7 @@ const loop = () => {
     console.log(`food: ${foodOwned}/${foodMax} wood: ${woodOwned}/${foodMax} metal: ${metalOwned}/${metalMax} science: ${scienceOwned}`);
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
-    console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
+    console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks} miners: ${miners} scientists: ${scientists} trainers: ${trainers} explorers: ${explorers}`);
     console.log(`bootsLevel: ${bootsLevel} boota: ${boota}`);
     //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
     console.log(`World: ${worldNumber} mapBonus: ${mapBonus}`);
@@ -288,9 +289,12 @@ const assignJobs = () => {
         if($('#Trainer').length) {
             $('#Trainer').click();
         }
-        if($('#Scientist').length && scientists < 2) {
-            $('#Scientist').click();
-        } else if ($('#Miner').length && miners < 10) {
+        if($('#Explorer').length && explorers < 2) {
+            console.log('get explorers');
+            $('#Explorer').click();
+        }
+        else if($('#Scientist').length && scientists < 2) $('#Scientist').click();
+        else if (miners < 10) {
             $('#Miner').click();
         } else if (farmers <= lumberjacks) {
             $('#FarmerOwned').click();
@@ -301,7 +305,11 @@ const assignJobs = () => {
         if($('#Trainer').length) {
             $('#Trainer').click();
         }
-        if($('#Scientist').length && scientists < 2) {
+        if($('#Explorer').length && explorers < 2) {
+            console.log('get explorers');
+            $('#Explorer').click();
+        }
+        else if($('#Scientist').length && scientists < 2) {
             $('#Scientist').click();
         } else if ( miners < lumberjacks) {
             $('#Miner').click();
@@ -550,6 +558,8 @@ const getStats = () => {
     lumberjacks = $('#LumberjackOwned').length == 0 ? 0 : parseInt($('#LumberjackOwned').text());
     miners = $('#MinerOwned').length == 0 ? 0 : parseInt($('#MinerOwned').text());
     scientists = $('#ScientistOwned').length == 0 ? 0 : parseInt($('#ScientistOwned').text());
+    trainers = $('#TrainerOwned').length == 0 ? 0 : parseInt($('#TrainerOwned').text());
+    explorers = $('#ExplorerOwned').length == 0 ? 0 : parseInt($('#ExplorerOwned').text());
 
     queue0 = $('#queueItem0').text();
     traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
