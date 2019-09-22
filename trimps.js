@@ -26,6 +26,10 @@ const itemCost = {
         food: 750,
         interval: 1.1
     },
+    tribute: {
+        food: 10000,
+        interval: 1.05
+    },
     shield: {
         2: {
             20: 73500
@@ -94,7 +98,8 @@ const itemCost = {
     breastplate: {
         2: {
             4: 41300
-        }
+        },
+        3: 1070000
     }
 }
 
@@ -147,6 +152,7 @@ var fragmentsOwned = convertNumber('fragmentsOwned');
 //Infrastructure
 var huts = parseInt($('#HutOwned').text());
 var gymOwned = parseInt($('#GymOwned').text());
+var tributeOwned = parseInt($('#TributeOwned').text());
 
 
 //Trimps
@@ -490,6 +496,7 @@ const checkInfrastructure = () => {
     if($('#Gym').length && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
         $('#Gym').click();
     }
+    if($('#Tribute').length && (foodOwned/10 > Math.floor(itemCost.tribute.food*Math.pow(itemCost.tribute.interval, tributeOwned)))) $('#Tribute').click();
 }
 
 const checkResearch = () => {
@@ -547,7 +554,9 @@ const getStats = () => {
 
     //Infrastructure
     gymOwned = parseInt($('#GymOwned').text());
+    tributeOwned = parseInt($('#TributeOwned').text());
 
+    //trimps
     trimpsOwned = parseInt($('#trimpsOwned').text());
     trimpsMax = parseInt($('#trimpsMax').text());
     trimpsEmployed = parseInt($('#trimpsEmployed').text());
