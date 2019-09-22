@@ -9,7 +9,78 @@
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
 
+const numConv = {
+    II: 2,
+    III: 3,
+    IV: 4,
+    V: 5,
+    VI: 6,
+    VII: 7,
+    VIII: 8,
+    IX: 9,
+    X: 10
+}
 
+const itemCost = {
+    trainer: {
+        food: 750,
+        interval: 1.1
+    },
+    shield: {
+        2: {
+            20: 73500
+        }
+    },
+    dagger: {
+        2: {
+            20: 73500
+        }
+    },
+    boots: {
+        1: {
+        },
+        2: {
+            12: 23500
+        }
+    },
+    mace: {
+        2: {
+            9: 19800
+        }
+    },
+    helmet: {
+        2: {
+            8: 20600
+        }
+    },
+    polearm: {
+        2: {
+            6: 20000
+        }
+    },
+    pants: {
+        2: {
+            metal: 7700,
+            interval: 1.2
+        }
+    },
+    battleaxe: {
+        2: {
+            3: 19100,
+            4: 22900
+        }
+    },
+    shoulderguards: {
+        2: {
+            3: 22800
+        }
+    },
+    greatsword: {
+        2: {
+            1: 21600
+        }
+    }
+}
 
 const convertNumber = field => {
     let value = $('#' + field).text();
@@ -105,9 +176,13 @@ var breastplateOwned = parseInt($('#BreastplateOwned').text());
 
 var worldName = $('#worldName').text();
 var worldNumber = parseInt($('#worldNumber').text());
+var mapToken = $('#mapsBtnText').text();
+var mapsNumber= parseInt(mapToken.replace(/[Maps ()]/g, ''));
+var mapBonus = parseInt($('#mapBonus').text());
 
 var newMap = false;
 var AUTOMATE = true;
+
 
 (function() {
     'use strict';
@@ -130,7 +205,7 @@ const loop = () => {
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
     //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
-    console.log(`#battle stats# World: ${worldNumber}`);
+    console.log(`#battle stats# World: ${worldNumber} mapLevel: ${mapsBtnText} mapBonus: ${mapBonus}`);
     console.log(`Gyms: ${gymOwned}`);
 
     if(trimpsMax >= 15) {
@@ -188,6 +263,9 @@ const assignJobs = () => {
             }
         }
     } else {
+        if($('#Trainer').length) {
+            $('#Trainer').click();
+        }
         if($('#Scientist').length && scientists < 2) {
             $('#Scientist').click();
         } else if ($('#Miner').length && miners < 10) {
@@ -208,11 +286,24 @@ const attack = () => {
 //     }
     if(newMap == true) {
         createMap();
+    } else if (mapBonus == 200 && $('#preMaps')[0].style.display == 'block') {
+        console.log('heading out');
+        $('#mapsBtnText').click();
+    } else if (mapBonus == 200 && $('#preMaps')[0].style.display == 'none') {
+        $('#fightBtn').click();
     } else if (worldName != 'Zone') {
         console.log('stuck in map land');
         $('#fightBtn').click();
+        if(mapBonus == 200) {
+            if($('#mapsBtnText').text() != 'Abandon Soldiers') {
+                console.log('get outta here');
+                $('#mapsBtnText').click();
+            } else {
+
+            }
+        }
     } else if(worldNumber >= 8 && worldNumber < 20) {
-        if(worldNumber % 2 == 0) {
+        if(worldNumber % 2 == 0 && mapBonus < 200) {
             //Map mode
             //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
             let mapTokens = [];
@@ -238,8 +329,10 @@ const attack = () => {
                 $('#selectMapBtn').click();
             }
         }
+    } else {
+        console.log('I said attack!');
+        $('#fightBtn').click();
     }
-        //$('#fightBtn').click();
 }
 
 const createMap = () => {
@@ -274,24 +367,6 @@ const createMap = () => {
 
     }
     $(document).ready(() => {updateMapNumbers()});
-    //TODO set condition for max difficulty requirement fragments > current fragments
-
-//     if(mapCost > fragmentsOwned) {
-//         console.log('in loot');
-//     } else {
-//         console.log('checking size value');
-//
-//         $(document).ready(() => {updateMapNumbers()});
-//         fragmentsOwned = convertNumber('fragmentsOwned')
-//         console.log(`difference: ${mapCost-fragmentsOwned} types: ${typeof(mapCost)} ${typeof(fragmentsOwned)}`);
-//         if (mapCost > fragmentsOwned) {
-//             $('#sizeAdvMapsRange').val(sizeValue);
-//             $(document).ready(() => {updateMapNumbers()});
-//             sizeValue--;
-//             fragmentsOwned = convertNumber('fragmentsOwned')
-//             console.log('decrease size');
-//         }
-//     }
 }
 
 const checkEquipment = () => {
