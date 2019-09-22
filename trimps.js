@@ -9,8 +9,8 @@
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
 
-const numConv = {
-    II: 2,
+const roman = {
+    "II": 2,
     III: 3,
     IV: 4,
     V: 5,
@@ -40,22 +40,26 @@ const itemCost = {
         1: {
         },
         2: {
-            12: 23500
+            12: 23500,
+            15: 40600
         }
     },
     mace: {
         2: {
-            9: 19800
+            9: 19800,
+            13: 41000
         }
     },
     helmet: {
         2: {
-            8: 20600
+            8: 20600,
+            12: 42700
         }
     },
     polearm: {
         2: {
-            6: 20000
+            6: 20000,
+            10: 41.600
         }
     },
     pants: {
@@ -67,17 +71,25 @@ const itemCost = {
     battleaxe: {
         2: {
             3: 19100,
-            4: 22900
+            4: 22900,
+            7: 39500
         }
     },
     shoulderguards: {
         2: {
-            3: 22800
+            3: 22800,
+            6: 39400
         }
     },
     greatsword: {
         2: {
-            1: 21600
+            1: 21600,
+            5: 44700
+        }
+    },
+    breastplate: {
+        2: {
+            4: 41300
         }
     }
 }
@@ -164,6 +176,7 @@ var battleContainer = $('#battleContainer').css('visibility');
 var shieldOwned = parseInt($('#ShieldOwned').text());
 var daggerOwned = parseInt($('#DaggerOwned').text());
 var bootsOwned = parseInt($('#BootsOwned').text());
+
 var maceOwned = parseInt($('#MaceOwned').text());
 var helmetOwned = parseInt($('#HelmetOwned').text());
 var polearmOwned = parseInt($('#PolearmOwned').text());
@@ -172,6 +185,9 @@ var battleaxeOwned = parseInt($('#BattleaxeOwned').text());
 var shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
 var greatswordOwned = parseInt($('#GreatswordOwned').text());
 var breastplateOwned = parseInt($('#BreastplateOwned').text());
+
+var bootsLevel = $('#DaggerNumeral').text();
+var boota = roman[bootsLevel];
 
 
 var worldName = $('#worldName').text();
@@ -204,8 +220,9 @@ const loop = () => {
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks}`);
+    console.log(`bootsLevel: ${bootsLevel} boota: ${boota}`);
     //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
-    console.log(`#battle stats# World: ${worldNumber} mapLevel: ${mapsBtnText} mapBonus: ${mapBonus}`);
+    console.log(`World: ${worldNumber} mapBonus: ${mapBonus}`);
     console.log(`Gyms: ${gymOwned}`);
 
     if(trimpsMax >= 15) {
@@ -262,13 +279,26 @@ const assignJobs = () => {
                 $('#Lumberjack').click();
             }
         }
-    } else {
+    } else if (trimpsOwned < 500) {
         if($('#Trainer').length) {
             $('#Trainer').click();
         }
         if($('#Scientist').length && scientists < 2) {
             $('#Scientist').click();
         } else if ($('#Miner').length && miners < 10) {
+            $('#Miner').click();
+        } else if (farmers <= lumberjacks) {
+            $('#FarmerOwned').click();
+        } else {
+            $('#Lumberjack').click();
+        }
+    } else {
+        if($('#Trainer').length) {
+            $('#Trainer').click();
+        }
+        if($('#Scientist').length && scientists < 2) {
+            $('#Scientist').click();
+        } else if ( miners < lumberjacks) {
             $('#Miner').click();
         } else if (farmers <= lumberjacks) {
             $('#FarmerOwned').click();
@@ -303,6 +333,7 @@ const attack = () => {
             }
         }
     } else if(worldNumber >= 8 && worldNumber < 20) {
+        console.log('world between 8 and 20');
         if(worldNumber % 2 == 0 && mapBonus < 200) {
             //Map mode
             //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
@@ -328,6 +359,9 @@ const attack = () => {
                 $('#' + $(map).attr('id')).click();
                 $('#selectMapBtn').click();
             }
+        } else {
+            console.log('odd world');
+            $('#fightBtn').click();
         }
     } else {
         console.log('I said attack!');
@@ -536,6 +570,13 @@ const getStats = () => {
     //world
     worldName = $('#worldName').text();
     worldNumber = parseInt($('#worldNumber').text());
+    mapToken = $('#mapsBtnText').text();
+    mapsNumber= parseInt(mapToken.replace(/[Maps ()]/g, ''));
+    mapBonus = parseInt($('#mapBonus').text());
+    if(isNaN(mapBonus)) {
+        mapBonus = 0;
+    }
+
 }
 
 const harvest = (resource) => {
