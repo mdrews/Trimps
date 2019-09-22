@@ -464,14 +464,12 @@ const checkEquipment = () => {
 const checkInfrastructure = () => {
     var nextHutFood = Math.floor(125*Math.pow(1.24, huts));
     var nextHutWood = Math.floor(75*Math.pow(1.24, huts));
-    if(foodOwned >= nextHutFood && woodOwned >= nextHutWood) {
-        $('#Hut').click();
-    }
-    if('#House .thingColorCanAfford') {
-        $('#House').click();
-    }
+
+    if('#Hut .thingColorCanAfford') $('#Hut').click();
+    if('#House .thingColorCanAfford') $('#House').click();
     if('#Mansion .thingColorCanAfford') $('#Mansion').click();
-    if($('#Gym') && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
+    if('#Hotel .thingColorCanAfford') $('#Hotel').click();
+    if($('#Gym').length && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
         $('#Gym').click();
     }
 
