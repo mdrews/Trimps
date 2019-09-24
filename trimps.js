@@ -351,11 +351,16 @@ const attack = () => {
 
             }
         }
-    } else if(worldNumber >= 8 && worldNumber <= 20) {
+    } else if((worldNumber >= 8 && worldNumber <= 20) || worldNumber > 20) {
         console.log('world between 8 and 20');
         if(worldNumber % 2 == 0 && mapBonus < 200) {
             //Map mode
             //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
+            let specialMap = $('#mapsHere div.noRecycle').attr('id');
+            if(specialMap) {
+                $('#' + $(specialMap).attr('id')).click();
+            }
+
             let mapTokens = [];
             let maxLevel = 0;
             let mapIndex = 0;
@@ -382,13 +387,6 @@ const attack = () => {
             console.log('odd world');
             $('#fightBtn').click();
         }
-    } else if (worldNumber >= 20 && mapBonus < 200) {
-        console.log('right area'); 
-        let specialMap = $('#mapsHere div.noRecycle').attr('id');
-        if(specialMap) {
-            $('#' + $(specialMap).attr('id')).click();
-        }
-        console.log(specialMap);
     } else {
         console.log('I said attack!');
         $('#fightBtn').click();
