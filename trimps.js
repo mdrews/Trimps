@@ -30,6 +30,12 @@ const itemCost = {
         food: 10000,
         interval: 1.05
     },
+    nursery: {
+        gems: 400000,
+        wood: 1000000,
+        metal: 500000,
+        interval: 1.06
+    },
     shield: {
         2: {
             20: 73500
@@ -112,6 +118,8 @@ const convertNumber = field => {
             return ~~(valueNumber * 1000);
         case 'M':
             return ~~(valueNumber * 1000000);
+        case 'B':
+            return ~~(valueNumber * 1000000000);
         default:
             return(valueNumber);
     }
@@ -147,12 +155,14 @@ var metalOwned = convertNumber('metalOwned');
 var metalMax = convertNumber('metalMax');
 var scienceOwned = convertNumber('scienceOwned');
 var fragmentsOwned = convertNumber('fragmentsOwned');
+var gemsOwned = convertNumber('gemsOwned');
 
 
 //Infrastructure
 var huts = parseInt($('#HutOwned').text());
 var gymOwned = parseInt($('#GymOwned').text());
 var tributeOwned = parseInt($('#TributeOwned').text());
+var nurseryOwned = parseInt($('#NurseryOwned').text());
 
 
 //Trimps
@@ -228,7 +238,7 @@ const loop = () => {
     getStats();
 
     console.log(`--------------------`);
-    console.log(`food: ${foodOwned}/${foodMax} wood: ${woodOwned}/${foodMax} metal: ${metalOwned}/${metalMax} science: ${scienceOwned}`);
+    console.log(`food: ${foodOwned}/${foodMax} wood: ${woodOwned}/${woodMax} metal: ${metalOwned}/${metalMax} science: ${scienceOwned} fragments: ${fragmentsOwned} gems: ${gemsOwned}`);
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks} miners: ${miners} scientists: ${scientists} trainers: ${trainers} explorers: ${explorers}`);
@@ -508,6 +518,11 @@ const checkInfrastructure = () => {
         $('#Gym').click();
     }
     if($('#Tribute').length && (foodOwned/10 > Math.floor(itemCost.tribute.food*Math.pow(itemCost.tribute.interval, tributeOwned)))) $('#Tribute').click();
+    if($('#Nursery').length
+      && (gemsOwned/2 > Math.floor(itemCost.nursery.gems*Math.pow(itemCost.nursery.interval, nurseryOwned)))
+      && (woodOwned/2 > Math.floor(itemCost.nursery.wood*Math.pow(itemCost.nursery.interval, nurseryOwned)))
+      && (metalOwned/2 > Math.floor(itemCost.nursery.metal*Math.pow(itemCost.nursery.interval, nurseryOwned)))
+      ) $('#Nursery').click();
 }
 
 const checkResearch = () => {
