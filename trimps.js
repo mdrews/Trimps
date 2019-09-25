@@ -356,10 +356,7 @@ const attack = () => {
         if(worldNumber % 2 == 0 && mapBonus < 200) {
             //Map mode
             //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
-            let specialMap = $('#mapsHere div.noRecycle').attr('id');
-            if(specialMap) {
-                $('#' + $(specialMap).attr('id')).click();
-            }
+
 
             let mapTokens = [];
             let maxLevel = 0;
@@ -373,7 +370,15 @@ const attack = () => {
                     mapIndex = x;
                 }
             }
-            if($('#mapsBtnText').text() == 'Maps') {
+            let specialMap = $('#mapsHere div.noRecycle').attr('id');
+            console.log('special map');
+            console.log(specialMap);
+            if(specialMap) {
+                console.log(`special map: ${specialMap}`);
+                $('#'+specialMap).click();
+                $('#selectMapBtn').click();
+            }
+            else if($('#mapsBtnText').text() == 'Maps') {
                 $('#mapsBtnText').click();
             } else if(maxLevel < worldNumber) {
                 createMap();
