@@ -515,6 +515,7 @@ const checkInfrastructure = () => {
     if('#Mansion .thingColorCanAfford') $('#Mansion').click();
     if('#Hotel .thingColorCanAfford') $('#Hotel').click();
     if('#Resort .thingColorCanAfford') $('#Resort').click();
+    if('#Gateway .thingColorCanAfford') $('#Gateway').click();
     if($('#Gym').length && (woodOwned/2 > Math.floor(400*Math.pow(1.185, gymOwned)))) {
         $('#Gym').click();
     }
