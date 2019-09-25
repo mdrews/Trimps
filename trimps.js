@@ -363,7 +363,7 @@ const attack = () => {
         }
     } else if((worldNumber >= 8 && worldNumber <= 20) || worldNumber > 20) {
         console.log('world between 8 and 20');
-        if(worldNumber % 2 == 0 && mapBonus < 200) {
+        if(worldNumber % 2 == 0 && mapBonus < 200 || (worldNumber >= 20 && mapBonus < 200)) {
             //Map mode
             //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
 
