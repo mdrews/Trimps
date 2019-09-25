@@ -394,7 +394,8 @@ const attack = () => {
                 createMap();
             } else {
                 console.log(`waiting to go to map: ${mapIndex}`);
-                let map = $('#mapsHere div')[mapIndex];
+                let map = $('#mapsHere div.mapThing')[mapIndex];
+                console.log(map);
                 $('#' + $(map).attr('id')).click();
                 $('#selectMapBtn').click();
             }
