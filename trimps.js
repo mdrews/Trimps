@@ -110,16 +110,22 @@ const itemCost = {
 }
 
 const convertNumber = field => {
-    let value = $('#' + field).text();
-    let valueNumber = parseFloat(value);
-    let suffix = value[value.length-1];
+    console.log(field);
+    let valueNumber = parseFloat(field);
+    console.log(`value number: ${valueNumber}`);
+    let suffix = field[field.length-1];
+    console.log(`suffix: ${suffix}`);
+    let returnNumber = Math.max();
     switch(suffix) {
         case 'K':
-            return ~~(valueNumber * 1000);
+            returnNumber = (valueNumber * 1000);
+            return Math.floor(returnNumber);;
         case 'M':
-            return ~~(valueNumber * 1000000);
+            returnNumber = (valueNumber * 1000000);
+            return Math.floor(returnNumber);
         case 'B':
-            return ~~(valueNumber * 1000000000);
+            returnNumber = (valueNumber * 1000000000);
+            return Math.floor(returnNumber);
         default:
             return(valueNumber);
     }
@@ -147,15 +153,15 @@ const BATTLE = 'BATTLE';
 var working = false;
 
 //Resources
-var foodOwned = convertNumber('foodOwned');
-var foodMax = convertNumber('foodMax');
-var woodOwned = convertNumber('woodOwned');
-var woodMax = convertNumber('woodMax');
-var metalOwned = convertNumber('metalOwned');
-var metalMax = convertNumber('metalMax');
-var scienceOwned = convertNumber('scienceOwned');
-var fragmentsOwned = convertNumber('fragmentsOwned');
-var gemsOwned = convertNumber('gemsOwned');
+let foodOwned = convertNumber($('#foodOwned').text());
+var foodMax = convertNumber($('#foodMax').text());
+var woodOwned = convertNumber($('#woodOwned').text());
+var woodMax = convertNumber($('#woodMax').text());
+var metalOwned = convertNumber($('#metalOwned').text());
+var metalMax = convertNumber($('#metalMax').text());
+var scienceOwned = convertNumber($('#scienceOwned').text());
+var fragmentsOwned = convertNumber($('#fragmentsOwned').text());
+var gemsOwned = convertNumber($('#gemsOwned').text());
 
 
 //Infrastructure
@@ -414,7 +420,8 @@ const createMap = () => {
     let mapLoot = parseInt($('#lootAdvMapsRange').val());
     let mapSize = parseInt($('#sizeAdvMapsRange').val());
     let mapDifficulty = parseInt($('#difficultyAdvMapsRange').val());
-    let mapCost = parseInt($('#mapCostFragmentCost').html());
+    let mapCost = convertNumber($('#mapCostFragmentCost').html());
+    console.log(`mapCost: ${mapCost}`);
     let mapCreatorLevel = parseInt($('#mapLevelInput').val());
     console.log(mapCreatorLevel);
 
@@ -570,14 +577,15 @@ const doWork = () => {
 
 const getStats = () => {
     //Resources
-    foodOwned = convertNumber('foodOwned');
-    foodMax = convertNumber('foodMax');
-    woodOwned = convertNumber('woodOwned');
-    woodMax = convertNumber('woodMax');
-    metalOwned = convertNumber('metalOwned');
-    metalMax = convertNumber('metalMax');
-    scienceOwned = convertNumber('scienceOwned');
-    fragmentsOwned = convertNumber('fragmentsOwned');
+    foodOwned = convertNumber($('#foodOwned').text());
+    foodMax = convertNumber($('#foodMax').text());
+    woodOwned = convertNumber($('#woodOwned').text());
+    woodMax = convertNumber($('#woodMax').text());
+    metalOwned = convertNumber($('#metalOwned').text());
+    metalMax = convertNumber($('#metalMax').text());
+    scienceOwned = convertNumber($('#scienceOwned').text());
+    fragmentsOwned = convertNumber($('#fragmentsOwned').text());
+    gemsOwned = convertNumber($('#gemsOwned').text());
 
 
     //Infrastructure
