@@ -106,6 +106,17 @@ const itemCost = {
             4: 41300
         },
         3: 1070000
+    },
+    helium: {
+        agility: [4, 6, 8, 11, 14, 18],
+        bait: [],
+        trumps: [],
+        pheromones: [],
+        packrat: [],
+        motivation: [],
+        power: [],
+        toughness: [],
+        looting: []
     }
 }
 
@@ -162,6 +173,7 @@ var metalMax = convertNumber($('#metalMax').text());
 var scienceOwned = convertNumber($('#scienceOwned').text());
 var fragmentsOwned = convertNumber($('#fragmentsOwned').text());
 var gemsOwned = convertNumber($('#gemsOwned').text());
+var heliumOwned = convertNumber($('#heliumOwned').text());
 
 
 //Infrastructure
@@ -258,6 +270,7 @@ const loop = () => {
         if(trimpsOwned === trimpsMax) {
             attack();
         }
+        if(heliumOwned > 100) { checkHelium(); }
         checkResources();
         checkInfrastructure();
         assignJobs();
@@ -516,6 +529,43 @@ const checkEquipment = () => {
     }
 }
 
+const checkHelium = () => {
+    $('#portalBtn').click();
+    let totalHeliumSpent = $
+    if(heliumOwned > 100) {
+        console.log('buy stuff');
+        $('#Agility').click();
+        $('#Agility').click();
+        $('#Agility').click();
+        $('#Bait').click();
+        $('#Bait').click();
+        $('#Trumps').click();
+        $('#Trumps').click();
+        $('#Pheromones').click();
+        $('#Packrat').click();
+        $('#Motivation').click();
+        $('#Motivation').click();
+        $('#Motivation').click();
+        $('#Power').click();
+        $('#Power').click();
+        $('#Power').click();
+        $('#Power').click();
+        $('#Power').click();
+        $('#Toughness').click();
+        $('#Toughness').click();
+        $('#Toughness').click();
+        $('#Toughness').click();
+        $('#Toughness').click();
+        $('#Looting').click();
+        $('#Looting').click();
+        $('#Looting').click();
+        $('#Looting').click();
+        $('#Looting').click();
+        $('#activatePortalBtn').click();
+        $('#tipCost').children('.btn-info').click();
+    }
+}
+
 const checkInfrastructure = () => {
     if('#Hut .thingColorCanAfford') $('#Hut').click();
     if('#House .thingColorCanAfford') $('#House').click();
@@ -586,6 +636,7 @@ const getStats = () => {
     scienceOwned = convertNumber($('#scienceOwned').text());
     fragmentsOwned = convertNumber($('#fragmentsOwned').text());
     gemsOwned = convertNumber($('#gemsOwned').text());
+    heliumOwned = convertNumber($('#heliumOwned').text());
 
 
     //Infrastructure
