@@ -271,6 +271,7 @@ const loop = () => {
             attack();
         }
         if(heliumOwned > 100) { checkHelium(); }
+        if($('#autoTrapBtn').length && $('#autoTrapBtn').text() == 'AutoTraps Off') $('#autoTrapBtn').click()
         checkResources();
         checkInfrastructure();
         assignJobs();
