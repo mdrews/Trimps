@@ -587,6 +587,10 @@ const checkInfrastructure = () => {
 const checkResearch = () => {
     var availableResearch = $('#upgradesHere').children('.thingColorCanAfford').attr('id');
     if(availableResearch) {
+        if(availableResearch == 'Shieldblock') {
+            $('#ShieldblockAlert').click();
+            $('#confirmTooltipBtn').click();
+        }
         console.log(availableResearch);
         $('#' + availableResearch).click();
     }
