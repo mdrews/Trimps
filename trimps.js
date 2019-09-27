@@ -307,16 +307,16 @@ const loop = () => {
 }
 
 const assignJobs = () => {
-    let maxScientists = 0;
+    let maxScientists = 2;
     let maxExplorers = 0;
-    let maxMiners = 0;
+    let maxMiners = 10;
 
-    if(trimpsOwned > 1500) {
+    if(trimpsMax > 1500) {
         maxScientists = 50;
         maxExplorers = 10;
-    } else if ( trimpsOwned > 500) {
-        maxMiners = Math.max();
-        maxScientists = 2;
+    } else if ( trimpsMax > 500) {
+        maxMiners = 1000000;
+        maxScientists = 20;
         maxExplorers = 2;
     } else {
         if(farmers == 0 || farmers <= lumberjacks) {
@@ -334,7 +334,7 @@ const assignJobs = () => {
         }
     }
 
-
+    console.log(maxMiners);
     if($('#Trainer').length) {
         $('#Trainer').click();
     }
