@@ -307,7 +307,18 @@ const loop = () => {
 }
 
 const assignJobs = () => {
-    if(trimpsOwned < 25) {
+    let maxScientists = 0;
+    let maxExplorers = 0;
+    let maxMiners = 0;
+
+    if(trimpsOwned > 1500) {
+        maxScientists = 50;
+        maxExplorers = 10;
+    } else if ( trimpsOwned > 500) {
+        maxMiners = Math.max();
+        maxScientists = 2;
+        maxExplorers = 2;
+    } else {
         if(farmers == 0 || farmers <= lumberjacks) {
             if(foodOwned < 5) {
                 harvest(FOOD);
@@ -321,48 +332,28 @@ const assignJobs = () => {
                 $('#Lumberjack').click();
             }
         }
-    } else if (trimpsOwned < 500) {
-        if($('#Trainer').length) {
-            $('#Trainer').click();
-        }
-        if($('#Explorer').length && explorers < 2) {
-            console.log('get explorers');
-            $('#Explorer').click();
-        }
-        else if($('#Scientist').length && scientists < 2) $('#Scientist').click();
-        else if (miners < 10) {
-            $('#Miner').click();
-        } else if (farmers <= lumberjacks) {
-            $('#FarmerOwned').click();
-        } else {
-            $('#Lumberjack').click();
-        }
+    }
+
+
+    if($('#Trainer').length) {
+        $('#Trainer').click();
+    }
+    if($('#Explorer').length && explorers < maxExplorers) {
+        $('#Explorer').click();
+    }
+    else if($('#Scientist').length && scientists < maxScientists) {
+        $('#Scientist').click();
+    } else if ( miners < lumberjacks && miners < maxMiners) {
+        $('#Miner').click();
+    } else if (farmers <= lumberjacks) {
+        $('#FarmerOwned').click();
     } else {
-        if($('#Trainer').length) {
-            $('#Trainer').click();
-        }
-        if($('#Explorer').length && explorers < 2) {
-            console.log('get explorers');
-            $('#Explorer').click();
-        }
-        else if($('#Scientist').length && scientists < 2) {
-            $('#Scientist').click();
-        } else if ( miners < lumberjacks) {
-            $('#Miner').click();
-        } else if (farmers <= lumberjacks) {
-            $('#FarmerOwned').click();
-        } else {
-            $('#Lumberjack').click();
-        }
+        $('#Lumberjack').click();
     }
 }
 
+
 const attack = () => {
-    console.log('attack');
-//     if($('#pauseFight').length) {
-//         console.log('should unpause');
-//         $('#pauseFight').click();
-//     }
     if(newMap == true) {
         createMap();
     } else if (mapBonus == 200 && $('#preMaps')[0].style.display == 'block') {
