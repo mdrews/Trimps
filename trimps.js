@@ -121,11 +121,8 @@ const itemCost = {
 }
 
 const convertNumber = field => {
-    console.log(field);
     let valueNumber = parseFloat(field);
-    console.log(`value number: ${valueNumber}`);
     let suffix = field[field.length-1];
-    console.log(`suffix: ${suffix}`);
     let returnNumber = Math.max();
     switch(suffix) {
         case 'K':
@@ -312,6 +309,7 @@ const assignJobs = () => {
     let maxMiners = 10;
 
     if(trimpsMax > 1500) {
+        maxMiners = 1000000;
         maxScientists = 50;
         maxExplorers = 10;
     } else if ( trimpsMax > 500) {
