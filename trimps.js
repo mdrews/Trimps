@@ -99,7 +99,8 @@ const itemCost = {
             1: 21600,
             5: 44700
         },
-        3: 967000
+        3: 967000,
+        4: { 0: 20400000 }
     },
     breastplate: {
         2: {
@@ -223,8 +224,9 @@ var shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
 var greatswordOwned = parseInt($('#GreatswordOwned').text());
 var breastplateOwned = parseInt($('#BreastplateOwned').text());
 
-var bootsLevel = $('#DaggerNumeral').text();
-var boota = roman[bootsLevel];
+
+var shieldUpgrade = roman[parseInt($('#ShieldNumberal').text())];
+var bootsUpgrade = roman[$('#DaggerNumeral').text()];
 
 
 var worldName = $('#worldName').text();
@@ -232,6 +234,7 @@ var worldNumber = parseInt($('#worldNumber').text());
 var mapToken = $('#mapsBtnText').text();
 var mapsNumber= parseInt(mapToken.replace(/[Maps ()]/g, ''));
 var mapBonus = parseInt($('#mapBonus').text());
+var portals = parseInt($('#totalPortals').text());
 
 var newMap = false;
 var AUTOMATE = true;
@@ -257,9 +260,9 @@ const loop = () => {
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks} miners: ${miners} scientists: ${scientists} trainers: ${trainers} explorers: ${explorers}`);
-    console.log(`bootsLevel: ${bootsLevel} boota: ${boota}`);
+    console.log(`Shield: ${shieldUpgrade}${shieldOwned} boots: ${bootsUpgrade}${bootsOwned}`);
     //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
-    console.log(`World: ${worldNumber} mapBonus: ${mapBonus}`);
+    console.log(`World: ${worldNumber} mapBonus: ${mapBonus} portals: ${portals}`);
     console.log(`Gyms: ${gymOwned}`);
 
     if(trimpsMax >= 15) {
@@ -267,7 +270,7 @@ const loop = () => {
         if(trimpsOwned === trimpsMax) {
             attack();
         }
-        if(heliumOwned > 100) { checkHelium(); }
+        if(heliumOwned > (portals*20 + 100)) { checkHelium(); }
         if($('#autoTrapBtn').length && $('#autoTrapBtn').text() == 'AutoTraps Off') $('#autoTrapBtn').click()
         checkResources();
         checkInfrastructure();
@@ -522,7 +525,7 @@ const checkEquipment = () => {
 const checkHelium = () => {
     $('#portalBtn').click();
     let totalHeliumSpent = $
-    if(heliumOwned > 100) {
+    if(heliumOwned > (portals*20 + 100)) {
         console.log('buy stuff');
         $('#Agility').click();
         $('#Agility').click();
@@ -592,6 +595,7 @@ const checkResources = () => {
         console.log('barn!');
         $('#BarnOwned').click();
     }
+    console.log(`woodOwned ${woodOwned} woorMax ${woodMax}`);
     if(woodOwned === woodMax) {
         console.log('shed!');
         $('#ShedOwned').click();
@@ -682,6 +686,7 @@ const getStats = () => {
     if(isNaN(mapBonus)) {
         mapBonus = 0;
     }
+    portals = parseInt($('#totalPortals').text());
 
 }
 
