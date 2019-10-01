@@ -9,6 +9,9 @@
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
 
+const million = 1000000;
+const billion = 1000000000;
+
 const roman = {
     "II": 2,
     "III": 3,
@@ -120,8 +123,7 @@ const convertNumber = field => {
 var $ = window.jQuery;
 
 
-const million = 1000000;
-const billion = 1000000000;
+
 
 const FOOD = 'FOOD';
 const WOOD = 'WOOD';
