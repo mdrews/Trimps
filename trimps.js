@@ -36,88 +36,50 @@ const itemCost = {
         metal: 500000,
         interval: 1.06
     },
-    shield: {
-        2: {
-            20: 73500
-        }
-    },
-    dagger: {
-        2: { 20: 73500 },
-        5: { 1: 55300000 },
-        7: { 1: 35500000000 }
-    },
-    boots: {
-        1: {
-        },
-        2: {
-            12: 23500,
-            15: 40600
-        },
-        5: { 1: 76000000 },
-        7: { 1: 48800000000 }
-    },
-    mace: {
-        2: {
-            9: 19800,
-            13: 41000
-        },
-        5: { 1: 111000000 },
-        7: { 1: 71000000000 }
-    },
-    helmet: {
-        2: {
-            8: 20600,
-            12: 42700
-        },
-        5: { 1: 111000000 },
-        7: { 1: 88800000000 }
-    },
-    polearm: {
-        2: {
-            6: 20000,
-            10: 41.600
-        },
-        5: { 1: 138000000 },
-    },
-    pants: {
-        2: {
-            metal: 7700
-        },
-        3: 413000,
-        5: { 1: 193000000 },
-    },
-    battleaxe: {
-        2: {
-            3: 19100,
-            4: 22900,
-            7: 39500
-        },
-        4: { 1: 8060000000 }
-    },
-    shoulderguards: {
-        2: {
-            3: 22800,
-            6: 39400
-        },
-        4: { 1: 9630000000 }
-    },
-    greatsword: {
-        2: {
-            1: 21600,
-            5: 44700
-        },
-        3: 967000,
-        4: { 1: 20400000 },
-        6: { 1: 13100000000 }
-    },
-    breastplate: {
-        2: {
-            4: 41300
-        },
-        3: 1070000,
-        4: { 1: 22600000 },
-        6: { 1: 14500000000 }
-    },
+    shield: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    dagger: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    boots: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), 1930*million, Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    mace: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             111*million, 2800*million, Math.max(), Math.max(), Math.max(), //5-9
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    helmet: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             138*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    polearm: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             193*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    pants: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             221*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    battleaxe: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             318*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    shoulderguards: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             380*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    greatsword: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             518*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
+    breastplate: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+             573*million, Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
+             Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
     helium: {
         agility: [4, 6, 8, 11, 14, 18, 23, 29, 37, 47, 61],
         bait: [4, 6, 8, 11, 14, 18, 23, 29, 37, 47, 61],
@@ -158,7 +120,8 @@ const convertNumber = field => {
 var $ = window.jQuery;
 
 
-
+const million = 1000000;
+const billion = 1000000000;
 
 const FOOD = 'FOOD';
 const WOOD = 'WOOD';
@@ -484,60 +447,38 @@ const createMap = () => {
 }
 
 const checkEquipment = () => {
-    if('#Shield') {
-        if(shieldOwned < 20 && woodOwned/4 > Math.floor(40*Math.pow(1.2, shieldOwned))) {
-            $('#Shield').click();
-        }
+    if('#Shield') { // 40
+        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned && itemCost.shield[shieldUpgrade+1]))))$('#Shield').click();
     }
-    if('#Dagger') {
-        if(daggerOwned < 20 && metalOwned/4 > Math.floor(40*Math.pow(1.2, daggerOwned))) {
-            $('#Dagger').click();
-        }
+    if('#Dagger') { // 40
+        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned && itemCost.dagger[daggerUpgrade+1])))) $('#Dagger').click();
     }
-    if('#Boots') {
-        if(bootsOwned < 20 && metalOwned/4 > Math.floor(55*Math.pow(1.2, bootsOwned))) {
-            $('#Boots').click();
-        }
+    if('#Boots') { // 55
+        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned && itemCost.boots[bootsUpgrade+1])))) $('#Boots').click();
     }
     if('#Mace') {
-        if(maceOwned < 20 && metalOwned/4 > Math.floor(80*Math.pow(1.2, maceOwned))) {
-            $('#Mace').click();
-        }
+        if(maceOwned < 20 && metalOwned/4 > (Math.floor(itemCost.mace[maceUpgrade]*Math.pow(1.2, maceOwned && itemCost.mace[maceUpgrade+1])))) $('#Mace').click();
     }
     if('#Helmet') {
-        if(helmetOwned < 20 && metalOwned/4 > Math.floor(100*Math.pow(1.2, helmetOwned))) {
-            $('#Helmet').click();
-        }
+        if(helmetOwned < 20 && metalOwned/4 > (Math.floor(itemCost.helmet[helmetUpgrade]*Math.pow(1.2, helmetOwned && itemCost.helmet[helmetUpgrade+1])))) $('#Helmet').click();
     }
     if('#Polearm') {
-        if(polearmOwned < 20 && metalOwned/4 > Math.floor(140*Math.pow(1.2, polearmOwned))) {
-            $('#Polearm').click();
-        }
+        if(polearmOwned < 20 && metalOwned/4 > (Math.floor(itemCost.polearm[polearmUpgrade]*Math.pow(1.2, polearmOwned && itemCost.polearm[polearmUpgrade+1]))))$('#Polearm').click();
     }
     if('#Pants') {
-        if(pantsOwned < 20 && metalOwned/4 > Math.floor(160*Math.pow(1.2, pantsOwned))) {
-            $('#Pants').click();
-        }
+        if(pantsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.pants[pantsUpgrade]*Math.pow(1.2, pantsOwned && itemCost.helmet[pantsUpgrade+1])))) $('#Pants').click();
     }
     if('#Battleaxe') {
-        if(battleaxeOwned < 20 && metalOwned/4 > Math.floor(230*Math.pow(1.2, battleaxeOwned))) {
-            $('#Battleaxe').click();
-        }
+        if(battleaxeOwned < 20 && metalOwned/4 > (Math.floor(itemCost.battleaxe[battleaxeUpgrade]*Math.pow(1.2, battleaxeOwned && itemCost.battleaxe[battleaxeUpgrade+1])))) $('#Battleaxe').click();
     }
     if('#Shoulderguards') {
-        if(shoulderguardsOwned < 20 && metalOwned/4 > Math.floor(275*Math.pow(1.2, shoulderguardsOwned))) {
-            $('#Shoulderguards').click();
-        }
+        if(shoulderguardsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.shoulderguards[shoulderguardsUpgrade]*Math.pow(1.2, shoulderguardsOwned && itemCost.shoulderguards[shoulderguardsUpgrade+1])))) $('#Shoulderguards').click();
     }
     if('#Greatsword') {
-        if(greatswordOwned < 20 && metalOwned/4 > Math.floor(375*Math.pow(1.2, greatswordOwned))) {
-            $('#Greatsword').click();
-        }
+        if(greatswordOwned < 20 && metalOwned/4 > (Math.floor(itemCost.greatsword[greatswordUpgrade]*Math.pow(1.2, greatswordOwned && itemCost.greatsword[greatswordUpgrade+1])))) $('#Greatsword').click();
     }
     if('#Breastplate') {
-        if(breastplateOwned < 20 && metalOwned/4 > Math.floor(415*Math.pow(1.2, breastplateOwned))) {
-            $('#Breastplate').click();
-        }
+        if(breastplateOwned < 20 && metalOwned/4 > (Math.floor(itemCost.breastplate[breastplateUpgrade]*Math.pow(1.2, breastplateOwned && itemCost.breastplate[breastplateUpgrade+1])))) $('#Breastplate').click();
     }
 }
 
