@@ -42,9 +42,7 @@ const itemCost = {
         }
     },
     dagger: {
-        2: {
-            20: 73500
-        },
+        2: { 20: 73500 },
         5: { 1: 55300000 },
         7: { 1: 35500000000 }
     },
@@ -71,7 +69,7 @@ const itemCost = {
             8: 20600,
             12: 42700
         },
-        4: { 1: 35000000000 },
+        5: { 1: 111000000 },
         7: { 1: 88800000000 }
     },
     polearm: {
@@ -79,14 +77,14 @@ const itemCost = {
             6: 20000,
             10: 41.600
         },
-        4: { 1: 4900000000 }
+        5: { 1: 138000000 },
     },
     pants: {
         2: {
             metal: 7700
         },
         3: 413000,
-        4: { 1: 5600000000 }
+        5: { 1: 193000000 },
     },
     battleaxe: {
         2: {
@@ -227,7 +225,6 @@ var battleContainer = $('#battleContainer').css('visibility');
 var shieldOwned = parseInt($('#ShieldOwned').text());
 var daggerOwned = parseInt($('#DaggerOwned').text());
 var bootsOwned = parseInt($('#BootsOwned').text());
-
 var maceOwned = parseInt($('#MaceOwned').text());
 var helmetOwned = parseInt($('#HelmetOwned').text());
 var polearmOwned = parseInt($('#PolearmOwned').text());
@@ -237,9 +234,17 @@ var shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
 var greatswordOwned = parseInt($('#GreatswordOwned').text());
 var breastplateOwned = parseInt($('#BreastplateOwned').text());
 
-
-var shieldUpgrade = roman[parseInt($('#ShieldNumberal').text())];
+var shieldUpgrade = roman[$('#ShieldNumeral').text()];
+var daggerUpgrade = roman[$('#DaggerNumeral').text()];
 var bootsUpgrade = roman[$('#DaggerNumeral').text()];
+var maceUpgrade = roman[$('#MaceNumeral').text()];
+var helmetUpgrade = roman[$('#HelmetNumeral').text()];
+var polearmUpgrade = roman[$('#PolearmNumeral').text()];
+var pantsUpgrade = roman[$('#PantsNumeral').text()];
+var battleaxeUpgrade = roman[$('#BattleaxeNumeral').text()];
+var shoulderguardsUpgrade = roman[$('#ShoulderguardsNumeral').text()];
+var greatswordUpgrade = roman[$('#GreatswordNumeral').text()];
+var breastplateUpgrade = roman[$('#BreastplateNumeral').text()];
 
 
 var worldName = $('#worldName').text();
@@ -274,8 +279,8 @@ const loop = () => {
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks} miners: ${miners} scientists: ${scientists} trainers: ${trainers} explorers: ${explorers}`);
-    console.log(`Shield: ${shieldUpgrade}${shieldOwned} boots: ${bootsUpgrade}${bootsOwned}`);
-    //console.log(`Shoulderguards: ${shoulderguardsOwned}`);
+    console.log(`Shield: ${shieldUpgrade}:${shieldOwned} dagger: ${daggerUpgrade}:${daggerOwned} boots: ${bootsUpgrade}:${bootsOwned} mace: ${maceUpgrade}:${maceOwned} helmet: ${helmetUpgrade}:${helmetOwned} polearm: ${polearmUpgrade}:${polearmOwned}`);
+    console.log(`pants: ${pantsUpgrade}:${pantsOwned} battleaxe: ${battleaxeUpgrade}:${battleaxeOwned} shoulderguards: ${shoulderguardsUpgrade}:${shoulderguardsOwned} greatsword: ${greatswordUpgrade}:${greatswordOwned} breastplate: ${breastplateUpgrade}:${breastplateOwned}`);
     console.log(`World: ${worldNumber} mapBonus: ${mapBonus} portals: ${portals}`);
     console.log(`Gyms: ${gymOwned}`);
 
@@ -691,6 +696,19 @@ const getStats = () => {
     shoulderguardsOwned = parseInt($('#ShoulderguardsOwned').text());
     greatswordOwned = parseInt($('#GreatswordOwned').text());
     breastplateOwned = parseInt($('#BreastplateOwned').text());
+
+    shieldUpgrade = roman[$('#ShieldNumeral').text()];
+    daggerUpgrade = roman[$('#DaggerNumeral').text()];
+    bootsUpgrade = roman[$('#DaggerNumeral').text()];
+    maceUpgrade = roman[$('#MaceNumeral').text()];
+    helmetUpgrade = roman[$('#HelmetNumeral').text()];
+    polearmUpgrade = roman[$('#PolearmNumeral').text()];
+    pantsUpgrade = roman[$('#PantsNumeral').text()];
+    battleaxeUpgrade = roman[$('#BattleaxeNumeral').text()];
+    shoulderguardsUpgrade = roman[$('#ShoulderguardsNumeral').text()];
+    greatswordUpgrade = roman[$('#GreatswordNumeral').text()];
+    breastplateUpgrade = roman[$('#BreastplateNumeral').text()];
+
 
     //world
     worldName = $('#worldName').text();
