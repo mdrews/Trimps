@@ -9,6 +9,9 @@
 // @require http://code.jquery.com/jquery-3.4.1.min.js
 // ==/UserScript==
 
+const million = 1000000;
+const billion = 1000000000;
+
 const roman = {
     "II": 2,
     "III": 3,
@@ -120,8 +123,7 @@ const convertNumber = field => {
 var $ = window.jQuery;
 
 
-const million = 1000000;
-const billion = 1000000000;
+
 
 const FOOD = 'FOOD';
 const WOOD = 'WOOD';
@@ -248,7 +250,6 @@ const loop = () => {
     console.log(`Gyms: ${gymOwned}`);
 
     if(trimpsMax >= 15) {
-        console.log('AREA 2');
         if(trimpsOwned === trimpsMax) {
             attack();
         }
@@ -267,7 +268,7 @@ const loop = () => {
             if(traps > 0) {
                 harvest(TRIMPS);
             } else if(buildingQueue > 0) {
-                harvest(BUILDING)
+                harvest(BUILDING);
             } else if(foodOwned >= 10 && woodOwned >= 10) {
                 $('#TrapOwned').click();
             } else if(foodOwned < 10) {
@@ -276,10 +277,14 @@ const loop = () => {
                 harvest(WOOD);
             } else if (queue0 != '') {
                 harvest(TRIMPS);
+            } else {
+                harvest(TRIMPS);
             }
         } else {
             if(battleContainer == 'visible') {
                 attack();
+            } else if(trimpsEmployed < maxEmployed) {
+                assignJobs();
             } else {
                 $('#BattleOwned').click();
                 harvest(SCIENCE);
