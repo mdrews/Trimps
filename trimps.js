@@ -184,6 +184,7 @@ var scienceOwned = convertNumber($('#scienceOwned').text());
 var fragmentsOwned = convertNumber($('#fragmentsOwned').text());
 var gemsOwned = convertNumber($('#gemsOwned').text());
 var heliumOwned = convertNumber($('#heliumOwned').text());
+var bones = parseInt($('#boneBtnText').text());
 
 
 //Infrastructure
@@ -248,6 +249,7 @@ var mapsNumber= parseInt(mapToken.replace(/[Maps ()]/g, ''));
 var mapBonus = parseInt($('#mapBonus').text());
 var portals = parseInt($('#totalPortals').text());
 
+
 var newMap = false;
 var AUTOMATE = true;
 
@@ -268,7 +270,7 @@ const loop = () => {
     getStats();
 
     console.log(`--------------------`);
-    console.log(`food: ${foodOwned}/${foodMax} wood: ${woodOwned}/${woodMax} metal: ${metalOwned}/${metalMax} science: ${scienceOwned} fragments: ${fragmentsOwned} gems: ${gemsOwned}`);
+    console.log(`food: ${foodOwned}/${foodMax} wood: ${woodOwned}/${woodMax} metal: ${metalOwned}/${metalMax} science: ${scienceOwned} fragments: ${fragmentsOwned} gems: ${gemsOwned} helium: ${heliumOwned} bones: ${bones}`);
     console.log(`working: ${working} zone: ${zone} traps: ${traps} battle: ${battle}`);
     console.log(`trimps: ${trimpsOwned} max: ${trimpsMax} employed: ${trimpsEmployed} max: ${maxEmployed}`);
     console.log(`farmers: ${farmers} lumberjacks: ${lumberjacks} miners: ${miners} scientists: ${scientists} trainers: ${trainers} explorers: ${explorers}`);
@@ -647,6 +649,7 @@ const getStats = () => {
     fragmentsOwned = convertNumber($('#fragmentsOwned').text());
     gemsOwned = convertNumber($('#gemsOwned').text());
     heliumOwned = convertNumber($('#heliumOwned').text());
+    bones = parseInt($('#boneBtnText').text());
 
 
     //Infrastructure
