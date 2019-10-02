@@ -39,47 +39,47 @@ const itemCost = {
         metal: 500000,
         interval: 1.06
     },
-    shield: [0, 40, 2301, Math.max(), Math.max(),
+    shield: [0, 40, 2301, 85833, Math.max(),
              Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    dagger: [0, 40, 2301, Math.max(), Math.max(),
+    dagger: [0, 40, 2301, 85833, Math.max(),
              Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    boots: [0, 55, 3164, Math.max(), Math.max(),
+    boots: [0, 55, 3164, 118000, Math.max(),
              Math.max(), 1930*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    mace: [0, 80, 4602, Math.max(), Math.max(),
+    mace: [0, 80, 4602, 172000, Math.max(),
              111*million, 2800*million, Math.max(), Math.max(), Math.max(), //5-9
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    helmet: [0, 100, 5752, Math.max(), Math.max(),
+    helmet: [0, 100, 5752, 215000, Math.max(),
              138*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    polearm: [0, 140, Math.max(), Math.max(), Math.max(),
+    polearm: [0, 140, 8054, 301000, Math.max(),
              193*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    pants: [0, 160, Math.max(), Math.max(), Math.max(),
+    pants: [0, 160, 9205, Math.max(), Math.max(),
              221*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    battleaxe: [0, 230, Math.max(), Math.max(), Math.max(),
+    battleaxe: [0, 230, 13200, Math.max(), Math.max(), // 01
              318*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    shoulderguards: [0, 275, Math.max(), Math.max(), Math.max(),
+    shoulderguards: [0, 275, 13200, Math.max(), Math.max(), //012
              380*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    greatsword: [0, 375, Math.max(), Math.max(), Math.max(),
+    greatsword: [0, 375, 18000, Math.max(), Math.max(),
              518*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    breastplate: [0, 415, Math.max(), Math.max(), Math.max(),
+    breastplate: [0, 415, 19900, Math.max(), Math.max(),
              573*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
@@ -173,7 +173,6 @@ var explorers = $('#ExplorerOwned').length == 0 ? 0 : parseInt($('#ExplorerOwned
 
 var queue0 = $('#queueItem0').text();
 var traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
-//var traps = parseInt(trapReady);
 var inQueue = $('#queueItem0').length;
 var zone = $('#worldNumber').text();
 var buildingQueue = $('#queueItemsHere div').length;
@@ -323,7 +322,6 @@ const assignJobs = () => {
         }
     }
 
-    console.log(maxMiners);
     if($('#Trainer').length) {
         $('#Trainer').click();
     }
@@ -346,27 +344,20 @@ const attack = () => {
     if(newMap == true) {
         createMap();
     } else if (mapBonus == 200 && $('#preMaps')[0].style.display == 'block') {
-        console.log('heading out');
         $('#mapsBtnText').click();
     } else if (mapBonus == 200 && $('#preMaps')[0].style.display == 'none') {
         $('#fightBtn').click();
     } else if (worldName != 'Zone') {
-        console.log('stuck in map land');
         $('#fightBtn').click();
         if(mapBonus == 200) {
             if($('#mapsBtnText').text() != 'Abandon Soldiers') {
-                console.log('get outta here');
                 $('#mapsBtnText').click();
             } else {
 
             }
         }
     } else if((worldNumber >= 8 && worldNumber <= 20) || worldNumber > 20) {
-        console.log('world between 8 and 20');
         if(worldNumber % 2 == 0 && mapBonus < 200 || (worldNumber >= 20 && mapBonus < 200)) {
-            //Map mode
-            //let currentMaps = $('#mapsHere div').children('span')[0].children('.mapLevel');
-
 
             let mapTokens = [];
             let maxLevel = 0;
@@ -381,10 +372,7 @@ const attack = () => {
                 }
             }
             let specialMap = $('#mapsHere div.noRecycle').attr('id');
-            console.log('special map');
-            console.log(specialMap);
             if(specialMap) {
-                console.log(`special map: ${specialMap}`);
                 $('#'+specialMap).click();
                 $('#selectMapBtn').click();
             }
@@ -393,34 +381,26 @@ const attack = () => {
             } else if(maxLevel < worldNumber) {
                 createMap();
             } else {
-                console.log(`waiting to go to map: ${mapIndex}`);
                 let map = $('#mapsHere div.mapThing')[mapIndex];
-                console.log(map);
                 $('#' + $(map).attr('id')).click();
                 $('#selectMapBtn').click();
             }
         } else {
-            console.log('odd world');
             $('#fightBtn').click();
         }
     } else {
-        console.log('I said attack!');
         $('#fightBtn').click();
     }
 }
 
 const createMap = () => {
-    console.log('in createMap');
     let mapLoot = parseInt($('#lootAdvMapsRange').val());
     let mapSize = parseInt($('#sizeAdvMapsRange').val());
     let mapDifficulty = parseInt($('#difficultyAdvMapsRange').val());
     let mapCost = convertNumber($('#mapCostFragmentCost').html());
-    console.log(`mapCost: ${mapCost}`);
     let mapCreatorLevel = parseInt($('#mapLevelInput').val());
-    console.log(mapCreatorLevel);
 
     if(mapCreatorLevel < worldNumber) {
-        console.log('increase map level');
         incrementMapLevel(worldNumber-mapCreatorLevel);
     }
     console.log(`-Map- loot: ${mapLoot} size: ${mapSize} difficulty: ${mapDifficulty} cost: ${mapCost} fragments: ${fragmentsOwned}`);
@@ -444,7 +424,6 @@ const createMap = () => {
     } else if ((mapSize == 0 && mapLoot == 0 && mapDifficulty == 0) && mapCost > fragmentsOwned) {
         newMap = false;
     } else {
-        console.log('map ready!');
         $('#mapCreateBtn').click();
         newMap = false;
 
@@ -463,38 +442,38 @@ const checkBones = () => {
 }
 
 const checkEquipment = () => {
-    if('#Shield') { // 40
-        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned) && (woodOwned * 4 < itemCost.shield[shieldUpgrade+1])))) $('#Shield').click();
+    if('#Shield') {
+        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned))) && (woodOwned * 2 < itemCost.shield[shieldUpgrade+1])) $('#Shield').click();
     }
-    if('#Dagger') { // 40
-        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned) && (metalOwned * 4 < itemCost.dagger[daggerUpgrade+1])))) $('#Dagger').click();
+    if('#Dagger') {
+        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned))) && (metalOwned * 2 < itemCost.dagger[daggerUpgrade+1])) $('#Dagger').click();
     }
-    if('#Boots') { // 55
-        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned) && (metalOwned * 4 < itemCost.boots[bootsUpgrade+1])))) $('#Boots').click();
+    if('#Boots') {
+        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned))) && (metalOwned * 2 < itemCost.boots[bootsUpgrade+1])) $('#Boots').click();
     }
     if('#Mace') {
-        if(maceOwned < 20 && metalOwned/4 > (Math.floor(itemCost.mace[maceUpgrade]*Math.pow(1.2, maceOwned && itemCost.mace[maceUpgrade+1])))) $('#Mace').click();
+        if(maceOwned < 20 && metalOwned/4 > (Math.floor(itemCost.mace[maceUpgrade]*Math.pow(1.2, maceOwned))) && (metalOwned * 2 < itemCost.mace[maceUpgrade+1])) $('#Mace').click();
     }
     if('#Helmet') {
-        if(helmetOwned < 20 && metalOwned/4 > (Math.floor(itemCost.helmet[helmetUpgrade]*Math.pow(1.2, helmetOwned && itemCost.helmet[helmetUpgrade+1])))) $('#Helmet').click();
+        if(helmetOwned < 20 && metalOwned/4 > (Math.floor(itemCost.helmet[helmetUpgrade]*Math.pow(1.2, helmetOwned))) && (metalOwned * 2 < itemCost.helmet[helmetUpgrade+1])) $('#Helmet').click();
     }
     if('#Polearm') {
-        if(polearmOwned < 20 && metalOwned/4 > (Math.floor(itemCost.polearm[polearmUpgrade]*Math.pow(1.2, polearmOwned && itemCost.polearm[polearmUpgrade+1]))))$('#Polearm').click();
+        if(polearmOwned < 20 && metalOwned/4 > (Math.floor(itemCost.polearm[polearmUpgrade]*Math.pow(1.2, polearmOwned))) && (metalOwned * 2 < itemCost.polearm[polearmUpgrade+1])) $('#Polearm').click();
     }
     if('#Pants') {
-        if(pantsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.pants[pantsUpgrade]*Math.pow(1.2, pantsOwned && itemCost.helmet[pantsUpgrade+1])))) $('#Pants').click();
+        if(pantsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.pants[pantsUpgrade]*Math.pow(1.2, pantsOwned))) && (metalOwned * 2 < itemCost.helmet[pantsUpgrade+1])) $('#Pants').click();
     }
     if('#Battleaxe') {
-        if(battleaxeOwned < 20 && metalOwned/4 > (Math.floor(itemCost.battleaxe[battleaxeUpgrade]*Math.pow(1.2, battleaxeOwned && itemCost.battleaxe[battleaxeUpgrade+1])))) $('#Battleaxe').click();
+        if(battleaxeOwned < 20 && metalOwned/4 > (Math.floor(itemCost.battleaxe[battleaxeUpgrade]*Math.pow(1.2, battleaxeOwned))) && (metalOwned * 2 < itemCost.battleaxe[battleaxeUpgrade+1])) $('#Battleaxe').click();
     }
     if('#Shoulderguards') {
-        if(shoulderguardsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.shoulderguards[shoulderguardsUpgrade]*Math.pow(1.2, shoulderguardsOwned && itemCost.shoulderguards[shoulderguardsUpgrade+1])))) $('#Shoulderguards').click();
+        if(shoulderguardsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.shoulderguards[shoulderguardsUpgrade]*Math.pow(1.2, shoulderguardsOwned))) && (metalOwned * 2 < itemCost.shoulderguards[shoulderguardsUpgrade+1])) $('#Shoulderguards').click();
     }
     if('#Greatsword') {
-        if(greatswordOwned < 20 && metalOwned/4 > (Math.floor(itemCost.greatsword[greatswordUpgrade]*Math.pow(1.2, greatswordOwned && itemCost.greatsword[greatswordUpgrade+1])))) $('#Greatsword').click();
+        if(greatswordOwned < 20 && metalOwned/4 > (Math.floor(itemCost.greatsword[greatswordUpgrade]*Math.pow(1.2, greatswordOwned))) && (metalOwned * 2 < itemCost.greatsword[greatswordUpgrade+1])) $('#Greatsword').click();
     }
     if('#Breastplate') {
-        if(breastplateOwned < 20 && metalOwned/4 > (Math.floor(itemCost.breastplate[breastplateUpgrade]*Math.pow(1.2, breastplateOwned && itemCost.breastplate[breastplateUpgrade+1])))) $('#Breastplate').click();
+        if(breastplateOwned < 20 && metalOwned/4 > (Math.floor(itemCost.breastplate[breastplateUpgrade]*Math.pow(1.2, breastplateOwned))) && (metalOwned * 2 < itemCost.breastplate[breastplateUpgrade+1])) $('#Breastplate').click();
     }
 }
 
@@ -502,7 +481,6 @@ const checkHelium = () => {
     $('#portalBtn').click();
     let totalHeliumSpent = $
     if(heliumOwned > (portals*20 + 100)) {
-        console.log('buy stuff');
         $('#Agility').click();
         $('#Agility').click();
         $('#Agility').click();
@@ -560,7 +538,6 @@ const checkResearch = () => {
             $('#ShieldblockAlert').click();
             $('#confirmTooltipBtn').click();
         }
-        console.log(availableResearch);
         $('#' + availableResearch).click();
     }
 
@@ -568,12 +545,9 @@ const checkResearch = () => {
 
 const checkResources = () => {
     if(foodOwned === foodMax) {
-        console.log('barn!');
         $('#BarnOwned').click();
     }
-    console.log(`woodOwned ${woodOwned} woorMax ${woodMax}`);
     if(woodOwned === woodMax) {
-        console.log('shed!');
         $('#ShedOwned').click();
     }
     if(metalOwned === metalMax) {
@@ -599,8 +573,7 @@ const doWork = () => {
     }
 }
 
-const getStats = () => {
-    //Resources
+const getStats = () => { //Resources
     foodOwned = convertNumber($('#foodOwned').text());
     foodMax = convertNumber($('#foodMax').text());
     woodOwned = convertNumber($('#woodOwned').text());
@@ -635,7 +608,6 @@ const getStats = () => {
 
     queue0 = $('#queueItem0').text();
     traps = $('#trimpsCollectBtn').text().replace(/[^0-9\.]/g, '');
-    //var traps = parseInt(trapReady);
     inQueue = $('#queueItem0').length;
     zone = $('#worldNumber').text();
     buildingQueue = $('#queueItemsHere div').length;
