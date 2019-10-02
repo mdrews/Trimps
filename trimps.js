@@ -43,19 +43,19 @@ const itemCost = {
              Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    dagger: [0, 40, Math.max(), Math.max(), Math.max(),
+    dagger: [0, 40, 2301, Math.max(), Math.max(),
              Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    boots: [0, 55, Math.max(), Math.max(), Math.max(),
+    boots: [0, 55, 3164, Math.max(), Math.max(),
              Math.max(), 1930*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    mace: [0, 80, Math.max(), Math.max(), Math.max(),
+    mace: [0, 80, 4602, Math.max(), Math.max(),
              111*million, 2800*million, Math.max(), Math.max(), Math.max(), //5-9
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    helmet: [0, 100, Math.max(), Math.max(), Math.max(),
+    helmet: [0, 100, 5752, Math.max(), Math.max(),
              138*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
@@ -464,13 +464,13 @@ const checkBones = () => {
 
 const checkEquipment = () => {
     if('#Shield') { // 40
-        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned) && (woodOwned/4 < itemCost.shield[shieldUpgrade+1])))) $('#Shield').click();
+        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned) && (woodOwned * 4 < itemCost.shield[shieldUpgrade+1])))) $('#Shield').click();
     }
     if('#Dagger') { // 40
-        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned && itemCost.dagger[daggerUpgrade+1])))) $('#Dagger').click();
+        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned) && (metalOwned * 4 < itemCost.dagger[daggerUpgrade+1])))) $('#Dagger').click();
     }
     if('#Boots') { // 55
-        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned && itemCost.boots[bootsUpgrade+1])))) $('#Boots').click();
+        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned) && (metalOwned * 4 < itemCost.boots[bootsUpgrade+1])))) $('#Boots').click();
     }
     if('#Mace') {
         if(maceOwned < 20 && metalOwned/4 > (Math.floor(itemCost.mace[maceUpgrade]*Math.pow(1.2, maceOwned && itemCost.mace[maceUpgrade+1])))) $('#Mace').click();
