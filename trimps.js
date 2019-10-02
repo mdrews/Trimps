@@ -39,47 +39,47 @@ const itemCost = {
         metal: 500000,
         interval: 1.06
     },
-    shield: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    shield: [0, 40, 2301, Math.max(), Math.max(),
              Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    dagger: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    dagger: [0, 40, Math.max(), Math.max(), Math.max(),
              Math.max(), 1400*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    boots: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    boots: [0, 55, Math.max(), Math.max(), Math.max(),
              Math.max(), 1930*million, Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    mace: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    mace: [0, 80, Math.max(), Math.max(), Math.max(),
              111*million, 2800*million, Math.max(), Math.max(), Math.max(), //5-9
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    helmet: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    helmet: [0, 100, Math.max(), Math.max(), Math.max(),
              138*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    polearm: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    polearm: [0, 140, Math.max(), Math.max(), Math.max(),
              193*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    pants: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    pants: [0, 160, Math.max(), Math.max(), Math.max(),
              221*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    battleaxe: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    battleaxe: [0, 230, Math.max(), Math.max(), Math.max(),
              318*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    shoulderguards: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    shoulderguards: [0, 275, Math.max(), Math.max(), Math.max(),
              380*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    greatsword: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    greatsword: [0, 375, Math.max(), Math.max(), Math.max(),
              518*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
-    breastplate: [0, Math.max(), Math.max(), Math.max(), Math.max(),
+    breastplate: [0, 415, Math.max(), Math.max(), Math.max(),
              573*million, Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max(),
              Math.max(), Math.max(), Math.max(), Math.max(), Math.max()],
@@ -147,8 +147,8 @@ var scienceOwned = convertNumber($('#scienceOwned').text());
 var fragmentsOwned = convertNumber($('#fragmentsOwned').text());
 var gemsOwned = convertNumber($('#gemsOwned').text());
 var heliumOwned = convertNumber($('#heliumOwned').text());
-var bones = parseInt($('#boneBtnText').text());
-
+var bonesTokens = $('#boneBtnText').text().split(' ');
+var bones = parseInt(bonesTokens[1]);
 
 //Infrastructure
 var huts = parseInt($('#HutOwned').text());
@@ -255,6 +255,7 @@ const loop = () => {
         }
         if(heliumOwned > (portals*20 + 100)) { checkHelium(); }
         if($('#autoTrapBtn').length && $('#autoTrapBtn').text() == 'AutoTraps Off') $('#autoTrapBtn').click()
+        checkBones();
         checkResources();
         checkInfrastructure();
         assignJobs();
@@ -451,9 +452,19 @@ const createMap = () => {
     $(document).ready(() => {updateMapNumbers()});
 }
 
+const checkBones = () => {
+    if(bones > 50) {
+        $('#boneBtnMain').click();
+        $('#Goblimp').click();
+        $('#importPurchaseBtn').click();
+        $('#confirmTooltipBtn').click();
+        document.ready(() => hideBones());
+    }
+}
+
 const checkEquipment = () => {
     if('#Shield') { // 40
-        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned && itemCost.shield[shieldUpgrade+1]))))$('#Shield').click();
+        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned) && (woodOwned/4 < itemCost.shield[shieldUpgrade+1])))) $('#Shield').click();
     }
     if('#Dagger') { // 40
         if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned && itemCost.dagger[daggerUpgrade+1])))) $('#Dagger').click();
@@ -600,7 +611,8 @@ const getStats = () => {
     fragmentsOwned = convertNumber($('#fragmentsOwned').text());
     gemsOwned = convertNumber($('#gemsOwned').text());
     heliumOwned = convertNumber($('#heliumOwned').text());
-    bones = parseInt($('#boneBtnText').text());
+    bonesTokens = $('#boneBtnText').text().split(' ');
+    bones = parseInt(bonesTokens[1]);
 
 
     //Infrastructure
