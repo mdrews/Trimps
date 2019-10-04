@@ -401,10 +401,16 @@ const createMap = () => {
 const checkBones = () => {
     if(bones > 50) {
         $('#boneBtnMain').click();
-        $('#Goblimp').click();
+
+        if($('#Goblimp.importOwned').length === 0) $('#Goblimp').click();
+        else if($('#Jestimp.importOwned').length === 0) $('#Jestimp').click();
+        else if($('#Chrono.importOwned').length === 0) $('#Jestimp').click();
+        else if($('#Titimp.importOwned').length === 0) $('#Jestimp').click();
+        else if($('#Flutimp.importOwned').length === 0) $('#Flutimp').click();
+        
         $('#importPurchaseBtn').click();
         $('#confirmTooltipBtn').click();
-        document.ready(() => hideBones());
+        $(document).ready(() => hideBones());
     }
 }
 
