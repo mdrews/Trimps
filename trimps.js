@@ -13,6 +13,7 @@ const million = 1000000;
 const billion = 1000000000;
 
 const roman = {
+    "": 1,
     "II": 2,
     "III": 3,
     "IV": 4,
@@ -415,38 +416,40 @@ const checkBones = () => {
 }
 
 const checkEquipment = () => {
+    let equipmentResearch = $('#upgradesHere').children().attr('id');
+    if(equipmentResearch == 'undefined') console.log('TRUE');
     if('#Shield') {
-        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned))) && (woodOwned * 2 < itemCost.shield[shieldUpgrade+1])) $('#Shield').click();
+        if(shieldOwned < 20 && woodOwned/4 > (Math.floor(itemCost.shield[shieldUpgrade]*Math.pow(1.2, shieldOwned))) && (woodOwned * 2 < itemCost.shield[shieldUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Shield').click();
     }
     if('#Dagger') {
-        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned))) && (metalOwned * 2 < itemCost.dagger[daggerUpgrade+1])) $('#Dagger').click();
+        if(daggerOwned < 20 && metalOwned/4 > (Math.floor(itemCost.dagger[daggerUpgrade]*Math.pow(1.2, daggerOwned))) && (metalOwned * 2 < itemCost.dagger[daggerUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Dagger').click();
     }
     if('#Boots') {
-        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned))) && (metalOwned * 2 < itemCost.boots[bootsUpgrade+1])) $('#Boots').click();
+        if(bootsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.boots[bootsUpgrade]*Math.pow(1.2, bootsOwned))) && (metalOwned * 2 < itemCost.boots[bootsUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Boots').click();
     }
     if('#Mace') {
-        if(maceOwned < 20 && metalOwned/4 > (Math.floor(itemCost.mace[maceUpgrade]*Math.pow(1.2, maceOwned))) && (metalOwned * 2 < itemCost.mace[maceUpgrade+1])) $('#Mace').click();
+        if(maceOwned < 20 && metalOwned/4 > (Math.floor(itemCost.mace[maceUpgrade]*Math.pow(1.2, maceOwned))) && (metalOwned * 2 < itemCost.mace[maceUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Mace').click();
     }
     if('#Helmet') {
-        if(helmetOwned < 20 && metalOwned/4 > (Math.floor(itemCost.helmet[helmetUpgrade]*Math.pow(1.2, helmetOwned))) && (metalOwned * 2 < itemCost.helmet[helmetUpgrade+1])) $('#Helmet').click();
+        if(helmetOwned < 20 && metalOwned/4 > (Math.floor(itemCost.helmet[helmetUpgrade]*Math.pow(1.2, helmetOwned))) && (metalOwned * 2 < itemCost.helmet[helmetUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Helmet').click();
     }
     if('#Polearm') {
-        if(polearmOwned < 20 && metalOwned/4 > (Math.floor(itemCost.polearm[polearmUpgrade]*Math.pow(1.2, polearmOwned))) && (metalOwned * 2 < itemCost.polearm[polearmUpgrade+1])) $('#Polearm').click();
+        if(polearmOwned < 20 && metalOwned/4 > (Math.floor(itemCost.polearm[polearmUpgrade]*Math.pow(1.2, polearmOwned))) && (metalOwned * 2 < itemCost.polearm[polearmUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Polearm').click();
     }
     if('#Pants') {
-        if(pantsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.pants[pantsUpgrade]*Math.pow(1.2, pantsOwned))) && (metalOwned * 2 < itemCost.helmet[pantsUpgrade+1])) $('#Pants').click();
+        if(pantsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.pants[pantsUpgrade]*Math.pow(1.2, pantsOwned))) && (metalOwned * 2 < itemCost.helmet[pantsUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Pants').click();
     }
     if('#Battleaxe') {
-        if(battleaxeOwned < 20 && metalOwned/4 > (Math.floor(itemCost.battleaxe[battleaxeUpgrade]*Math.pow(1.2, battleaxeOwned))) && (metalOwned * 2 < itemCost.battleaxe[battleaxeUpgrade+1])) $('#Battleaxe').click();
+        if(battleaxeOwned < 20 && metalOwned/4 > (Math.floor(itemCost.battleaxe[battleaxeUpgrade]*Math.pow(1.2, battleaxeOwned))) && (metalOwned * 2 < itemCost.battleaxe[battleaxeUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Battleaxe').click();
     }
     if('#Shoulderguards') {
-        if(shoulderguardsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.shoulderguards[shoulderguardsUpgrade]*Math.pow(1.2, shoulderguardsOwned))) && (metalOwned * 2 < itemCost.shoulderguards[shoulderguardsUpgrade+1])) $('#Shoulderguards').click();
+        if(shoulderguardsOwned < 20 && metalOwned/4 > (Math.floor(itemCost.shoulderguards[shoulderguardsUpgrade]*Math.pow(1.2, shoulderguardsOwned))) && (metalOwned * 2 < itemCost.shoulderguards[shoulderguardsUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Shoulderguards').click();
     }
     if('#Greatsword') {
-        if(greatswordOwned < 20 && metalOwned/4 > (Math.floor(itemCost.greatsword[greatswordUpgrade]*Math.pow(1.2, greatswordOwned))) && (metalOwned * 2 < itemCost.greatsword[greatswordUpgrade+1])) $('#Greatsword').click();
+        if(greatswordOwned < 20 && metalOwned/4 > (Math.floor(itemCost.greatsword[greatswordUpgrade]*Math.pow(1.2, greatswordOwned))) && (metalOwned * 2 < itemCost.greatsword[greatswordUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Greatsword').click();
     }
     if('#Breastplate') {
-        if(breastplateOwned < 20 && metalOwned/4 > (Math.floor(itemCost.breastplate[breastplateUpgrade]*Math.pow(1.2, breastplateOwned))) && (metalOwned * 2 < itemCost.breastplate[breastplateUpgrade+1])) $('#Breastplate').click();
+        if(breastplateOwned < 20 && metalOwned/4 > (Math.floor(itemCost.breastplate[breastplateUpgrade]*Math.pow(1.2, breastplateOwned))) && (metalOwned * 2 < itemCost.breastplate[breastplateUpgrade+1] || typeof(equipmentResearch) == 'undefined')) $('#Breastplate').click();
     }
 }
 
