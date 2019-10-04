@@ -84,13 +84,7 @@ const convertNumber = field => {
 }
 
 
-
-
-
-
 var $ = window.jQuery;
-
-
 
 
 const FOOD = 'FOOD';
@@ -124,7 +118,6 @@ var gymOwned = parseInt($('#GymOwned').text());
 var tributeOwned = parseInt($('#TributeOwned').text());
 var nurseryOwned = parseInt($('#NurseryOwned').text());
 
-
 //Trimps
 var trimpsOwned = parseInt($('#trimpsOwned').text());
 var trimpsMax = parseInt($('#trimpsMax').text());
@@ -145,9 +138,7 @@ var inQueue = $('#queueItem0').length;
 var zone = $('#worldNumber').text();
 var buildingQueue = $('#queueItemsHere div').length;
 
-
 var researched = [];
-
 
 var battle = $('#BattleOwned').text();
 var fighting = $('#trimpsFighting').text();
@@ -184,12 +175,10 @@ var worldNumber = parseInt($('#worldNumber').text());
 var mapToken = $('#mapsBtnText').text();
 var mapsNumber= parseInt(mapToken.replace(/[Maps ()]/g, ''));
 var mapBonus = parseInt($('#mapBonus').text());
-var portals = parseInt($('#totalPortals').text());
-
+var portals = $('#stattotalPortalsValue').length === 0 ? 0 : parseInt($('#stattotalPortalsValue').text());
 
 var newMap = false;
 var AUTOMATE = true;
-
 
 (function() {
     'use strict';
@@ -199,8 +188,6 @@ var AUTOMATE = true;
         () => { loop() } ,1000);
     }
 })();
-
-
 
 const loop = () => {
 
@@ -625,7 +612,7 @@ const getStats = () => { //Resources
     if(isNaN(mapBonus)) {
         mapBonus = 0;
     }
-    portals = parseInt($('#totalPortals').text());
+    portals = $('#stattotalPortalsValue').length === 0 ? 0 : parseInt($('#stattotalPortalsValue').text());
 
 }
 
