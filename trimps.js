@@ -550,7 +550,6 @@ const getStats = () => {
     bonesTokens = $('#boneBtnText').text().split(' ');
     bones = parseInt(bonesTokens[1]);
 
-    //Infrastructure
     gymOwned = parseInt($('#GymOwned').text());
     tributeOwned = parseInt($('#TributeOwned').text());
 
