@@ -536,7 +536,7 @@ const doWork = () => {
     }
 }
 
-const getStats = () => { //Resources
+const getStats = () => {
     foodOwned = convertNumber($('#foodOwned').text());
     foodMax = convertNumber($('#foodMax').text());
     woodOwned = convertNumber($('#woodOwned').text());
